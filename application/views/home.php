@@ -56,13 +56,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Ferramentas</a>
+                        <a href="#">fazer login</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">Sobre</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contato</a>
+                        <a href="#">criar conta</a>
                     </li>
                 </ul>
             </div>
