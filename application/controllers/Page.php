@@ -48,9 +48,7 @@ class Page extends CI_Controller {
 					//Se o formulário foi enviado e preenchido corretamente
 					$this->load->model('gerente_md', 'gerente');
 					if ($this->gerente->emailExiste($this->input->post('gerente_email'))) {
-						//Informar que já existe um usuário com este e-mail
-						//Issue #3
-						echo "Já existe este e-mail cadastrado (Issue #3)";
+						$this->message("email_already_exists");
 					} else {
 						//Cadastrar gerente e academia no banco de dados
 						$gerente_nome = $this->input->post('gerente_nome');
@@ -71,6 +69,18 @@ class Page extends CI_Controller {
 				break;
 			case "user":
 				//Carrega a página de cadastro de usuário
+				break;
+		}
+	}
+	
+	public function message($tipo) {
+		switch($tipo) {
+			case "email_already_exists":
+				$data = array("tipo"=>"erro", 
+							  "msg"=>"Já existe um usário cadastrado com este e-mail", 
+							  "bt_text"=>"Tentar novamente",
+							  "bt_href"=>"?/Page/cadastro");
+				$this->load->view('message', $data);
 				break;
 		}
 	}
