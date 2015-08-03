@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text">
-                        <span class="name">Cadastro</span>
+                        <span class="name">Cadastro /academia</span>
                     </div>
                 </div>
             </div>
