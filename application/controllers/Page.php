@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Page extends CI_Controller {
@@ -47,6 +47,7 @@ class Page extends CI_Controller {
 				} else {
 					//Se o formulário foi enviado e preenchido corretamente
 					$this->load->model('gerente_md', 'gerente');
+					$this->load->model('academia_md', 'academia');
 					if ($this->gerente->emailExiste($this->input->post('gerente_email'))) {
 						$this->message("email_already_exists");
 					} else {
@@ -56,11 +57,19 @@ class Page extends CI_Controller {
 						$gerente_email = $this->input->post('gerente_email');
 						$gerente_senha = $this->input->post('gerente_senha');
 						//O cadastro retorna o ID gerado para o gerente
-						$idGerente = $this->gerente->cadastrarGerente($gerente_nome, 
-																	  $gerente_sobrenome, 
-																	  $gerente_email, 
-																	  $gerente_senha);
-						//Cadastrar a academia (Issue #4)
+						$idGerente = $this->gerente->cadastrarGerente($gerente_nome, $gerente_sobrenome, $gerente_email, $gerente_senha);
+
+						$academia_nome = $this->input->post('academia_nome');
+						$academia_cidade = $this->input->post('academia_cidade');
+						$academia_estado = $this->input->post('academia_estado');
+						$academia_endereco = $this->input->post('academia_endereco');
+						$academia_telefone = $this->input->post('academia_telefone');
+						$idAcademia = $this->academia->cadastrarAcademia($academia_nome, $academia_cidade, $academia_estado, $academia_endereco, $academia_telefone);
+
+						//Inserindo a relação entre academia e gerente
+						$this->load->database();
+						$dados = array("gerente_id"=>$idGerente, "academia_id"=>$idAcademia);
+						$this->db->insert('gerente_has_academia', $dados);
 					}
 					
 				}
