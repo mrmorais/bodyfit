@@ -16,7 +16,11 @@ class Gerente_md extends CI_Model {
 		$dados = array("nome"=>$nome, "sobrenome"=>$sobrenome, "email"=>$email, "senha"=>$senha, "tipo"=>1);
 		$this->db->insert('gerente', $dados);
 		
-		return $this->db->insert_id();
+		if($this->db->insert('gerente', $dados)) {
+			return $this->db->insert_id();
+		} else {
+			return 0;
+		}
 	}
 	
 	public function emailExiste($email) {
