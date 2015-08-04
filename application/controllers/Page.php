@@ -23,7 +23,7 @@ class Page extends CI_Controller {
 		$this->load->view('home');
 	}
 	
-	public function cadastro($tipo="user") {
+	public function cadastro($tipo="aluno") {
 		switch($tipo) {
 			case "academia":
 				$this->load->library('form_validation');
@@ -49,7 +49,7 @@ class Page extends CI_Controller {
 					$this->load->model('gerente_md', 'gerente');
 					$this->load->model('academia_md', 'academia');
 					if ($this->gerente->emailExiste($this->input->post('gerente_email'))) {
-						$this->message("email_already_exists");
+						$this->message("email_already_exists", "?/Page/cadastro/academia");
 					} else {
 						//Cadastrar gerente e academia no banco de dados
 						$gerente_nome = $this->input->post('gerente_nome');
@@ -76,19 +76,84 @@ class Page extends CI_Controller {
 			
 				
 				break;
-			case "user":
+			case "aluno":
 				//Carrega a página de cadastro de usuário
+				$this->load->library('form_validation');
+				//regras de validação dos dados do aluno
+				$this->form_validation->set_rules('aluno_codigo', 'Código de Acesso', 'required|max_length[6]');
+				$this->form_validation->set_rules('aluno_nome', 'Nome do aluno', 'required|max_length[45]');
+				$this->form_validation->set_rules('aluno_sobrenome', 'Sobrenome do aluno', 'required|max_length[45]');
+				$this->form_validation->set_rules('aluno_nascimento', 'Data de nascimento', 'required|max_length[45]');
+				$this->form_validation->set_rules('aluno_email', 'Email', 'required|trim|valid_email|max_length[255]');
+				$this->form_validation->set_rules('aluno_senha', 'Senha', 'required|max_length[32]');
+				$this->form_validation->set_rules('aluno_r_senha', 'Repetir senha', 'required|matches[aluno_senha]|max_length[32]');
+				$this->form_validation->set_rules('aluno_sexo', 'Sexo', 'required|max_length[2]');
+				$this->form_validation->set_rules('aluno_endereco', 'Endereço', 'max_length[45]');
+				$this->form_validation->set_rules('aluno_telefone', 'Telefone', 'max_length[45]');
+				
+				if ($this->form_validation->run()==FALSE) {
+					//Se o formulario não foi preenchido corretamente ou se não foi preenchido ainda: Carrega a página de cadastro
+					$this->load->view('aluno_md', 'aluno');
+					if ($this->aluno->emailExiste($this->input->post('aluno_email'))) {
+						$this->message("email_already_exists", "?/Page/cadastro/aluno");
+					} else {
+						$idAcademia = $this->aluno->validarCodigoDeAcesso('mrmrmr');
+						if (!$idAcademia) {
+							$this->message("access_code_inexist", "?/Page");
+						} else {
+							$aluno_nome = $this->input->post('aluno_nome');
+							$aluno_sobrenome = $this->input->post('aluno_sobrenome');
+							$aluno_nascimento = $this->input->post('aluno_nascimento');
+							$aluno_email = $this->input->post('aluno_email');
+							$aluno_senha = $this->input->post('aluno_senha');
+							$aluno_sexo = $this->input->post('aluno_sexo');
+							$aluno_endereco = $this->input->post('aluno_endereco');
+							$aluno_telefone = $this->input->post('aluno_telefone');
+
+							$idAluno = $this->aluno->cadastrarAluno($aluno_nome, $aluno_sobrenome, $aluno_email, $aluno_nascimento, $aluno_sexo, $aluno_telefone, $aluno_endereco, $idAcademia);
+							if ($idAluno == 0) {
+								message("error_cadastro", "?/Page");
+							} else {
+								message("success_cadastro", "?/Page/login/aluno");
+							}
+						}
+					}
+				} else {
+					$this->load->model('aluno_md', 'aluno');
+				}
+
 				break;
 		}
 	}
 	
-	public function message($tipo) {
+	public function message($tipo, $link) {
 		switch($tipo) {
 			case "email_already_exists":
 				$data = array("tipo"=>"erro", 
 							  "msg"=>"Já existe um usário cadastrado com este e-mail", 
 							  "bt_text"=>"Tentar novamente",
-							  "bt_href"=>"?/Page/cadastro");
+							  "bt_href"=>$link);
+				$this->load->view('message', $data);
+				break;
+			case "access_code_inexist":
+				$data = array("tipo"=>"erro", 
+							  "msg"=>"O código de acesso informado não existe", 
+							  "bt_text"=>"Voltar para o início",
+							  "bt_href"=>$link);
+				$this->load->view('message', $data);
+				break;
+			case "error_cadastro":
+				$data = array("tipo"=>"erro", 
+							  "msg"=>"Houve algum problema no seu cadastro!", 
+							  "bt_text"=>"Voltar para o início",
+							  "bt_href"=>$link);
+				$this->load->view('message', $data);
+				break;
+			case "success_cadastro":
+				$data = array("tipo"=>"success", 
+							  "msg"=>"Cadastro realizado com sucesso!", 
+							  "bt_text"=>"Fazer login",
+							  "bt_href"=>$link);
 				$this->load->view('message', $data);
 				break;
 		}

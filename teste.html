@@ -1,4 +1,4 @@
-ï»¿<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html><html lang="pt-br">
@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bodyfit</title>
+    <title>Bem vindo ao Bodyfit</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
@@ -74,17 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text">
-                        <span class="name">
-						<?php 
-							switch($tipo) {
-								case "erro":
-									echo "Ops!";
-									break;
-								case "success":
-									echo "Yeah!";
-									break;
-							}
-                        ?></span>
+                        <span class="name">Cadastro /aluno</span>
                     </div>
                 </div>
             </div>
@@ -95,13 +85,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section id="contact">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-					<h1><?php echo $msg; ?></h1><hr class="star-primary">
-					<?php
-						if (isset($bt_href)) {
-					?>
-					<a href="<?php echo $bt_href; ?>" class="btn btn-success btn-lg"><?php echo $bt_text; ?></a>
-					<?php } ?>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <div class="row"><?php echo validation_errors(); ?></div>
+                    <form id="cadastro" method="post" action="?/Page/cadastro/aluno" role="form">
+						<div class="row text-center"><h3>Código de acesso</h3><hr class="star-primary"></div>
+						<div class="form-group col-xs-6">
+							<label>Código* </label><input type="text" name="aluno_nome" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nome'); ?>" required>
+						</div>
+						<div class="row text-center"><h3>Dados do aluno</h3><hr class="star-primary"></div>
+						<div class="form-group col-xs-6">
+							<label>Nome* </label><input type="text" name="aluno_nome" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nome'); ?>" required>
+						</div>
+						<div class="form-group col-xs-6">
+							<label>Sobrenome* </label><input type="text" name="aluno_sobrenome" maxlength="45" class="form-control" value="<?php echo set_value('aluno_sobrenome'); ?>" required>
+						</div>
+						<div class="form-group col-xs-12">
+							<label>Email* </label><input type="email" name="aluno_email" maxlength="255" class="form-control" value="<?php echo set_value('aluno_email'); ?>" required>
+						</div>
+						<div class="form-group col-xs-6">
+							<label>Senha* </label><input type="password" name="aluno_senha" maxlength="32" class="form-control" required>
+						</div>
+						<div class="form-group col-xs-6">
+							<label>Repetir senha* </label><input type="password" name="aluno_r_senha" maxlength="32" class="form-control" required>
+						</div>
+						<div class="form-group col-xs-10">
+							<label>Data de Nascimento* </label><input type="date" name="aluno_nascimento" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nascimento'); ?>" required>
+						</div>
+						<div class="form-group col-xs-2">
+							<label>Sexo* </label>
+							<select class="form-control" name="aluno_sexo" value="<?php echo set_value('aluno_sexo'); ?>">
+								<option value="M">M</option>
+								<option value="F">F</option>
+							</select>
+						</div>
+						<div class="form-group col-xs-6">
+							<label>Endereço</label><input type="text" name="aluno_endereco" maxlength="45" class="form-control" value="<?php echo set_value('aluno_endereco'); ?>">
+						</div>
+						<div class="form-group col-xs-6">
+							<label>Telefone</label><input type="text" name="aluno_telefone" maxlength="45" class="form-control" value="<?php echo set_value('aluno_telefone'); ?>">
+						</div>
+						<div id="success"></div>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -113,7 +144,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="container">
                 <div class="row">
                     <div class="footer-col col-md-4">
-                        <h3>LocalizaÃ§Ã£o</h3>
+                        <h3>Localização</h3>
                         <p>IFRN<br>Apodi, RN 59700-000</p>
                     </div>
                     <div class="footer-col col-md-4">
@@ -138,7 +169,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="footer-col col-md-4">
                         <h3>Em breve...</h3>
-                        <p>mais informaÃ§Ãµes.</p>
+                        <p>mais informações.</p>
                     </div>
                 </div>
             </div>
