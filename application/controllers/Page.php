@@ -93,7 +93,10 @@ class Page extends CI_Controller {
 				
 				if ($this->form_validation->run()==FALSE) {
 					//Se o formulario não foi preenchido corretamente ou se não foi preenchido ainda: Carrega a página de cadastro
-					$this->load->view('aluno_md', 'aluno');
+					$this->load->view('cad_aluno');
+					
+				} else {
+					$this->load->model('aluno_md', 'aluno');
 					if ($this->aluno->emailExiste($this->input->post('aluno_email'))) {
 						$this->message("email_already_exists", "?/Page/cadastro/aluno");
 					} else {
@@ -110,16 +113,14 @@ class Page extends CI_Controller {
 							$aluno_endereco = $this->input->post('aluno_endereco');
 							$aluno_telefone = $this->input->post('aluno_telefone');
 
-							$idAluno = $this->aluno->cadastrarAluno($aluno_nome, $aluno_sobrenome, $aluno_email, $aluno_nascimento, $aluno_sexo, $aluno_telefone, $aluno_endereco, $idAcademia);
+							$idAluno = $this->aluno->cadastrarAluno($aluno_nome, $aluno_sobrenome, $aluno_email, $aluno_senha, $aluno_nascimento, $aluno_sexo, $aluno_telefone, $aluno_endereco, $idAcademia);
 							if ($idAluno == 0) {
-								message("error_cadastro", "?/Page");
+								$this->message("error_cadastro", "?/Page");
 							} else {
-								message("success_cadastro", "?/Page/login/aluno");
+								$this->message("success_cadastro", "?/Page/login/aluno");
 							}
 						}
 					}
-				} else {
-					$this->load->model('aluno_md', 'aluno');
 				}
 
 				break;
