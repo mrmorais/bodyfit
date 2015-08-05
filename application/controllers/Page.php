@@ -66,16 +66,16 @@ class Page extends CI_Controller {
 						$academia_telefone = $this->input->post('academia_telefone');
 						$idAcademia = $this->academia->cadastrarAcademia($academia_nome, $academia_cidade, $academia_estado, $academia_endereco, $academia_telefone);
 						
-						if ($idGerente == 0) {
-							message("error_cadastro", "?/Page");
-						} else {
-							message("success_cadastro", "?/Page/login/academia");
-						}
-						
 						//Inserindo a relação entre academia e gerente
 						$this->load->database();
 						$dados = array("gerente_id"=>$idGerente, "academia_id"=>$idAcademia);
 						$this->db->insert('gerente_has_academia', $dados);
+						
+						if ($idGerente == 0) {
+							$this->message("error_cadastro", "?/Page");
+						} else {
+							$this->message("success_cadastro", "?/Page/login/academia");
+						}
 					}
 					
 				}
