@@ -93,7 +93,7 @@ class Page extends CI_Controller {
 				$this->form_validation->set_rules('aluno_email', 'Email', 'required|trim|valid_email|max_length[255]');
 				$this->form_validation->set_rules('aluno_senha', 'Senha', 'required|max_length[32]');
 				$this->form_validation->set_rules('aluno_r_senha', 'Repetir senha', 'required|matches[aluno_senha]|max_length[32]');
-				$this->form_validation->set_rules('aluno_sexo', 'Sexo', 'required|max_length[2]');
+				$this->form_validation->set_rules('aluno_sexo', 'Sexo', 'required|max_length[1]');
 				$this->form_validation->set_rules('aluno_endereco', 'Endereço', 'max_length[45]');
 				$this->form_validation->set_rules('aluno_telefone', 'Telefone', 'max_length[45]');
 				

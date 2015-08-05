@@ -11,12 +11,12 @@ class Aluno_md extends CI_Model {
 	public function validarCodigoDeAcesso($codigo) {
 		//Retorno: se existe= id da academia
 		//Retorno: se não existe= false
-		return 1;
+		return 2;
 	}
 	public function cadastrarAluno($nome, $sobrenome, $email, $senha, $nascimento, $sexo, $telefone, $endereco, $academia_id) {
 		//Função de cadastro
 		$this->load->database();
-		$dados = array("nome"=>$nome, "sobrenome"=>$sobrenome, "email"=>$email, "senha"=>$senha, "nascimento"=>$nascimento, "academia_id"=>$academia_id);
+		$dados = array("nome"=>$nome, "sobrenome"=>$sobrenome, "email"=>$email, "senha"=>$senha, "nascimento"=>$nascimento, "academia_id"=>$academia_id, "sexo"=>$sexo, "telefone"=>$telefone, "endereco"=>$endereco);
 		//Por enquanto sexo, telefone e endereço foram suprimidos, enquanto não estão no db
 		if($this->db->insert('aluno', $dados)) {
 			return $this->db->insert_id();
