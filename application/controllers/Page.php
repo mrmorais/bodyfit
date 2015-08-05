@@ -130,6 +130,42 @@ class Page extends CI_Controller {
 				}
 
 				break;
+				
+				case "personal":
+				//Carrega a página de cadastro de usuário
+				$this->load->library('form_validation');
+				//regras de validação dos dados do aluno
+				$this->form_validation->set_rules('personal_nome', 'Nome do personal', 'required|max_length[45]');
+				$this->form_validation->set_rules('personal_sobrenome', 'Sobrenome do personal', 'required|max_length[45]');
+				$this->form_validation->set_rules('personal_email', 'Email', 'required|trim|valid_email|max_length[255]');
+				$this->form_validation->set_rules('personal_senha', 'Senha', 'required|max_length[32]');
+				$this->form_validation->set_rules('personal_r_senha', 'Repetir senha', 'required|matches[personal_senha]|max_length[32]');
+				
+				if ($this->form_validation->run()==FALSE) {
+					//Se o formulario não foi preenchido corretamente ou se não foi preenchido ainda: Carrega a página de cadastro
+					$this->load->view('cad_personal');
+					
+				} else {
+					$this->load->model('personal_md', 'personal');
+					if ($this->personal->emailExiste($this->input->post('personal_email'))) {
+						$this->message("email_already_exists", "?/Page/cadastro/personal");
+					} else {
+							$personal_nome = $this->input->post('personal_nome');
+							$personal_sobrenome = $this->input->post('personal_sobrenome');
+							$personal_email = $this->input->post('personal_email');
+							$personal_senha = $this->input->post('personal_senha');
+
+							$idPersonal = $this->personal->cadastrarPersonal($personal_nome, $personal_sobrenome, $personal_email, $personal_senha);
+							
+							if ($idPersonal == 0) {
+								$this->message("error_cadastro", "?/Page");
+							} else {
+								$this->message("success_cadastro", "?/Page/login/personal");
+							}
+						}
+					}
+
+				break;
 		}
 	}
 	
