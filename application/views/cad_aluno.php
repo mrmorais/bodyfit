@@ -15,6 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS DatePicker -->
+    <link href="public/datepicker/css/datepicker.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="public/css/freelancer.css" rel="stylesheet">
@@ -111,7 +113,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<label>Repetir senha* </label><input type="password" name="aluno_r_senha" maxlength="32" class="form-control" required>
 						</div>
 						<div class="form-group col-xs-10">
-							<label>Data de Nascimento* </label><input type="date" name="aluno_nascimento" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nascimento'); ?>" required>
+							<label>Data de Nascimento* </label><input type="date" name="aluno_nascimento" id="datepicker" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nascimento'); ?>" required>
 						</div>
 						<div class="form-group col-xs-2">
 							<label>Sexo* </label>
@@ -202,13 +204,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="public/js/classie.js"></script>
     <script src="public/js/cbpAnimatedHeader.js"></script>
+    <!--JS DatePicker-->
+    <script src="public/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="public/datepicker/js/locales/bootstrap-datepicker.pt-BR.js" charset="UTF-8"></script>
 
     <!-- Contact Form JavaScript -->
     <script src="public/js/jqBootstrapValidation.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="public/js/freelancer.js"></script>
-
+    
+    <script>
+	$('#datepicker').datepicker({
+		language: 'pt-BR'
+	});
+	$("#datepicker").on("changeDate", function(event) {
+		$("#my_hidden_input").val(
+			$("#datepicker").datepicker('getFormattedDate')
+		 )
+	});
+    </script>
 </body>
 
 </html>
