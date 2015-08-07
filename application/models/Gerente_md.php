@@ -14,7 +14,6 @@ class Gerente_md extends CI_Model {
 	public function cadastrarGerente($nome, $sobrenome, $email, $senha) {
 		$this->load->database();
 		$dados = array("nome"=>$nome, "sobrenome"=>$sobrenome, "email"=>$email, "senha"=>$senha, "tipo"=>1);
-		$this->db->insert('gerente', $dados);
 		
 		if($this->db->insert('gerente', $dados)) {
 			return $this->db->insert_id();
