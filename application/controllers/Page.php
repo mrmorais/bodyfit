@@ -23,7 +23,7 @@ class Page extends CI_Controller {
 		$this->load->view('home');
 	}
 	
-	public function cadastro($tipo="aluno") {
+	public function cadastro($tipo="default") {
 		switch($tipo) {
 			case "academia":
 				$this->load->library('form_validation');
@@ -131,7 +131,7 @@ class Page extends CI_Controller {
 
 				break;
 				
-				case "personal":
+			case "personal":
 				//Carrega a página de cadastro de usuário
 				$this->load->library('form_validation');
 				//regras de validação dos dados do aluno
@@ -166,6 +166,8 @@ class Page extends CI_Controller {
 					}
 
 				break;
+			default:
+				$this->load->view("cadastro");
 		}
 	}
 	

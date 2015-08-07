@@ -56,10 +56,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#login" class="portfolio-link" data-toggle="modal">fazer login</a>
+                        <a href="?/Page/login">fazer login</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#cadastro" class="portfolio-link" data-toggle="modal">criar conta</a>
+                        <a href="?/Page/cadastro">criar conta</a>
                     </li>
                 </ul>
             </div>
@@ -289,56 +289,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
     <!-- Portfolio Modals -->
-    <div class="portfolio-modal modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Login</h2>
-                            <hr class="star-primary">
-                            <p><a href="#" class="btn btn-success">ACADEMIA</a></p>
-                            <p><a href="#" class="btn btn-success">PERSONAL</a></p>
-                            <p><a href="#" class="btn btn-success">ALUNO</a></p><hr>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--/modal0 (login) -->
-    <div class="portfolio-modal modal fade" id="cadastro" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Cadastro</h2>
-                            <hr class="star-primary">
-                            <p><a href="?/Page/cadastro/academia" class="btn btn-success">ACADEMIA</a></p>
-                            <p><a href="#" class="btn btn-success">PERSONAL</a></p>
-                            <p><a href="#" class="btn btn-success">ALUNO</a></p><hr>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--/modal0 (cadastro) -->
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">

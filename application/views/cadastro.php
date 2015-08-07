@@ -11,12 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bem vindo ao Bodyfit</title>
+    <title>Bodyfit</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
-    <!-- CSS DatePicker -->
-    <link href="public/datepicker/css/datepicker.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="public/css/freelancer.css" rel="stylesheet">
@@ -74,71 +72,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="intro-text">
-                        <span class="name">Cadastro /aluno</span>
+                        <span class="name" style="background: #F39C12;">Cadastro</span>
                     </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+						<div class="col-lg-8 col-lg-offset-2 text-center" style="vertical-align: middle; line-height: 90px;">
+							<a href="?/Page/cadastro/aluno" class="btn btn-warning">ALUNO</a>
+							<a href="?/Page/cadastro/personal" class="btn btn-warning" >PERSONAL</a>
+							<a href="?/Page/cadastro/academia" class="btn btn-warning" >ACADEMIA</a>
+						</div>
+					</div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Cadastro Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <div class="row"><?php echo validation_errors(); ?></div>
-                    <form id="cadastro" method="post" action="?/Page/cadastro/aluno" role="form">
-						<div class="row text-center"><h3>Código de acesso</h3><hr class="star-primary"></div>
-						<div class="form-group col-xs-12 col-sm-12">
-							<label>Código* </label><input type="text" name="aluno_codigo" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nome'); ?>" required>
-						</div>
-						<div class="row text-center"><h3>Dados do aluno</h3><hr class="star-primary"></div>
-						<div class="form-group col-xs-12 col-sm-6">
-							<label>Nome* </label><input type="text" name="aluno_nome" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nome'); ?>" required>
-						</div>
-						<div class="form-group col-xs-12  col-sm-6">
-							<label>Sobrenome* </label><input type="text" name="aluno_sobrenome" maxlength="45" class="form-control" value="<?php echo set_value('aluno_sobrenome'); ?>" required>
-						</div>
-						<div class="form-group col-xs-12">
-							<label>Email* </label><input type="email" name="aluno_email" maxlength="255" class="form-control" value="<?php echo set_value('aluno_email'); ?>" required>
-						</div>
-						<div class="form-group col-xs-12 col-sm-6">
-							<label>Senha* </label><input type="password" name="aluno_senha" maxlength="32" class="form-control" required>
-						</div>
-						<div class="form-group col-xs-12 col-sm-6">
-							<label>Repetir senha* </label><input type="password" name="aluno_r_senha" maxlength="32" class="form-control" required>
-						</div>
-						<div class="form-group col-xs-12 col-sm-10">
-							<label>Data de Nascimento* </label><input type="date" name="aluno_nascimento" id="datepicker" maxlength="45" class="form-control" value="<?php echo set_value('aluno_nascimento'); ?>" required>
-						</div>
-						<div class="form-group col-xs-12 col-sm-2">
-							<label>Sexo* </label>
-							<select class="form-control" name="aluno_sexo" value="<?php echo set_value('aluno_sexo'); ?>">
-								<option value="M">M</option>
-								<option value="F">F</option>
-							</select>
-						</div>
-						<div class="form-group col-xs-12 col-sm-6">
-							<label>Endereço</label><input type="text" name="aluno_endereco" maxlength="45" class="form-control" value="<?php echo set_value('aluno_endereco'); ?>">
-						</div>
-						<div class="form-group col-xs-12 col-sm-6">
-							<label>Telefone</label><input type="text" name="aluno_telefone" maxlength="45" class="form-control" value="<?php echo set_value('aluno_telefone'); ?>">
-						</div>
-						<div id="success"></div>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Enviar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Footer -->
     <footer class="text-center">
@@ -204,26 +156,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="public/js/classie.js"></script>
     <script src="public/js/cbpAnimatedHeader.js"></script>
-    <!--JS DatePicker-->
-    <script src="public/datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="public/datepicker/js/locales/bootstrap-datepicker.pt-BR.js" charset="UTF-8"></script>
 
     <!-- Contact Form JavaScript -->
     <script src="public/js/jqBootstrapValidation.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="public/js/freelancer.js"></script>
-    
-    <script>
-	$('#datepicker').datepicker({
-		language: 'pt-BR'
-	});
-	$("#datepicker").on("changeDate", function(event) {
-		$("#my_hidden_input").val(
-			$("#datepicker").datepicker('getFormattedDate')
-		 )
-	});
-    </script>
+
 </body>
 
 </html>
