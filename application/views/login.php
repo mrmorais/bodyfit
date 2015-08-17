@@ -71,55 +71,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </nav>
 
     <!-- Header -->
+    <?php if($area == "picker") { ?>
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="intro-text">
-                        <span class="name">Cadastro /personal</span>
+                        <span class="name" style="background: #F39C12;">Login</span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+						<div class="col-lg-8 col-lg-offset-2 text-center" style="vertical-align: middle; line-height: 90px;">
+							<a href="?/Page/login/aluno" class="btn btn-warning">ALUNO</a>
+							<a href="?/Page/login/personal" class="btn btn-warning" >PERSONAL</a>
+							<a href="?/Page/login/academia" class="btn btn-warning" >ACADEMIA</a>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <?php } else { ?>
+	<?php
+		switch($area) {
+			case "aluno":
+				$titulo = "ALUNO";
+				$action = "?/Page/login/aluno/go";
+			break;
+			case "personal":
+				$titulo = "PERSONAL";
+				$action = "?/Page/login/personal/go";
+			break;
+			case "academia":
+				$titulo = "ACADEMIA";
+				$action = "?/Page/login/academia/go";
+			break;
+		}
+	?>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="intro-text">
+                        <h1><?php echo $titulo; ?></h1>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="intro-text">
+						<form class="form" action="<?php echo $action; ?>" method="post">
+							<div class="form-group col-lg-6">
+								<input type="mail" class="form-control" placeholder="E-mail" name="email">
+							</div>
+							<div class="form-group col-lg-6">
+								<input type="mail" class="form-control" placeholder="Senha" name="senha">
+							</div>
+							<div class="form-group col-lg-6">
+								<button class="btn btn-primary form-control">Entrar</button>
+							</div>
+							<div class="form-group col-lg-6">
+								esqueci minha senha
+							</div>
+						</form>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
+	<?php } ?>
     <!-- Cadastro Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <div class="row"><?php echo validation_errors(); ?></div>
-                    <form id="cadastro" method="post" action="?/Page/cadastro/personal" role="form">
-                        <div class="row text-center"><h3>Dados do personal</h3><hr class="star-primary"></div>
-                        <div class="form-group col-xs-6">
-                            <label>Nome* </label><input type="text" name="personal_nome" maxlength="45" class="form-control" value="<?php echo set_value('gerente_nome'); ?>" required>
-                        </div>
-                        <div class="form-group col-xs-6">
-                            <label>Sobrenome* </label><input type="text" name="personal_sobrenome" maxlength="45" class="form-control" value="<?php echo set_value('gerente_sobrenome'); ?>" required>
-                        </div>
-                        <div class="form-group col-xs-12">
-                            <label>Email* </label><input type="email" name="personal_email" maxlength="255" class="form-control" value="<?php echo set_value('gerente_email'); ?>" required>
-                        </div>
-                        <div class="form-group col-xs-6">
-                            <label>Senha* </label><input type="password" name="personal_senha" maxlength="32" class="form-control" required>
-                        </div>
-                        <div class="form-group col-xs-6">
-                            <label>Repetir senha* </label><input type="password" name="personal_r_senha" maxlength="32" class="form-control" required>
-                        </div>
-                       
-                        <div id="success"></div>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Enviar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Footer -->
     <footer class="text-center">

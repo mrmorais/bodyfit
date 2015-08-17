@@ -20,6 +20,7 @@ class Page extends CI_Controller {
 	 */
 	public function index()
 	{
+		//Abrir página inicial
 		$this->load->view('home');
 	}
 	
@@ -56,6 +57,7 @@ class Page extends CI_Controller {
 						$gerente_sobrenome = $this->input->post('gerente_sobrenome');
 						$gerente_email = $this->input->post('gerente_email');
 						$gerente_senha = $this->input->post('gerente_senha');
+						
 						//O cadastro retorna o ID gerado para o gerente
 						$idGerente = $this->gerente->cadastrarGerente($gerente_nome, $gerente_sobrenome, $gerente_email, $gerente_senha);
 
@@ -106,7 +108,7 @@ class Page extends CI_Controller {
 					if ($this->aluno->emailExiste($this->input->post('aluno_email'))) {
 						$this->message("email_already_exists", "?/Page/cadastro/aluno");
 					} else {
-						$idAcademia = $this->aluno->validarCodigoDeAcesso('mrmrmr');
+						$idAcademia = $this->aluno->validarCodigoDeAcesso($this->input->post('aluno_codigo'));
 						if (!$idAcademia) {
 							$this->message("access_code_inexist", "?/Page");
 						} else {
@@ -171,6 +173,27 @@ class Page extends CI_Controller {
 		}
 	}
 	
+	public function login($tipo = null, $acao = "show") {
+		switch ($acao) {
+			case "show":
+				switch ($tipo) {
+					case null:
+						$this->load->view("login", array("area"=>"picker"));
+					break;
+					case "aluno":
+						$this->load->view("login", array("area"=>"aluno"));
+					break;
+					case "academia":
+						$this->load->view("login", array("area"=>"academia"));
+					break;
+					case "personal":
+						$this->load->view("login", array("area"=>"personal"));
+					break;
+				}
+			break;
+		}
+	}
+	
 	public function message($tipo, $link) {
 		switch($tipo) {
 			case "email_already_exists":
@@ -202,5 +225,14 @@ class Page extends CI_Controller {
 				$this->load->view('message', $data);
 				break;
 		}
+	}
+	
+	//Função provisória para geração de codigo aleatório
+	public function gerarcodigo($id) {
+		//id é da academia
+		$this->load->model("academia_md");
+		$this->academia_md->set($id);
+		
+		echo $this->academia_md->emitirCodigo("aluno");
 	}
 }

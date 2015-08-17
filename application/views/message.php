@@ -12,6 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="author" content="">
 
     <title>Bodyfit</title>
+    <!-- Favicon na aba-->
+    <link href="public/img/favicon.ico" rel="shortcut icon" />
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
