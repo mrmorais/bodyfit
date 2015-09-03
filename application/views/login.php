@@ -124,7 +124,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<input type="mail" class="form-control" placeholder="E-mail" name="email">
 							</div>
 							<div class="form-group col-lg-6">
-								<input type="mail" class="form-control" placeholder="Senha" name="senha">
+								<input type="password" class="form-control" placeholder="Senha" name="senha">
 							</div>
 							<div class="form-group col-lg-6">
 								<button class="btn btn-primary form-control">Entrar</button>

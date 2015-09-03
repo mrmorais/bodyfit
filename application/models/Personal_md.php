@@ -15,6 +15,26 @@ class Personal_md extends CI_Model {
 			return 0;
 		}
 	}
+	
+	public function setar($id) {
+		$this->load->database();
+		
+		$this->db->where("id", $id);
+		$query = $this->db->get('personal');
+		
+		if ($query->num_rows() == 1) {
+			foreach ($query->result() as $row) {
+				$this->id = $row->id;
+				$this->nome = $row->nome;
+				$this->sobrenome = $row->sobrenome;
+				$this->email = $row->email;
+			}
+			return $this;
+		} else {
+			return false;
+		}
+	}
+	
 	public function emailExiste($email) {
 		$this->load->database();
 		$sql = "SELECT * FROM personal WHERE email = ?";
@@ -23,6 +43,25 @@ class Personal_md extends CI_Model {
 			return true;
 		}
 		return false;
+	}
+	
+	public function validate($email, $senha){
+		$this->load->database();
+		//SELECT's, primeiro parametro é o nome da coluna e o segundo é a variável de comparação
+		$this->db->where('email', $email);
+		$this->db->where('senha', $senha);
+		
+		//Executa a query
+		$query = $this->db->get('personal');
+		
+		//Verifica o numero de linhas
+		if ($query->num_rows() == 1) {
+			foreach ($query->result() as $row) {
+				return $row->id;
+			}
+		} else {
+			return false;
+		}
 	}
 }
 ?>

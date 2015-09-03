@@ -15,7 +15,7 @@ class Academia_md extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
-	public function set($id) {
+	public function setar($id) {
 		$this->load->database();
 		$query = $this->db->query("SELECT * FROM academia WHERE id = ? LIMIT 1", array($id));
 		foreach ($query->result() as $row) {
@@ -26,6 +26,7 @@ class Academia_md extends CI_Model {
 			$this->telefone = $row->telefone;
 			$this->endereco = $row->endereco;
 		}
+		return $this;
 	}
 	
 	public function emitirCodigo($tipo) {

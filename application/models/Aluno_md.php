@@ -7,6 +7,7 @@ class Aluno_md extends CI_Model {
 	public $sexo;
 	public $endereco;
 	public $telefone;
+	public $academia_id;
 	
 	public function validarCodigoDeAcesso($codigo) {
 		//Retorno: se existe= id da academia
@@ -20,6 +21,29 @@ class Aluno_md extends CI_Model {
 				
 				return $row->academia_id;
 			}
+		} else {
+			return false;
+		}
+	}
+	
+	public function setar($id) {
+		$this->load->database();
+		
+		$this->db->where("id", $id);
+		$query = $this->db->get('aluno');
+		
+		if ($query->num_rows() == 1) {
+			foreach ($query->result() as $row) {
+				$this->id = $row->id;
+				$this->nome = $row->nome;
+				$this->sobrenome = $row->sobrenome;
+				$this->email = $row->email;
+				$this->sexo = $row->sexo;
+				$this->endereco = $row->endereco;
+				$this->telefone = $row->telefone;
+				$this->academia_id = $row->academia_id;
+			}
+			return $this;
 		} else {
 			return false;
 		}
@@ -54,5 +78,29 @@ class Aluno_md extends CI_Model {
 		}
 		return false;
 	}
+	
+	public function validate($email, $senha){
+		$this->load->database();
+		//SELECT's, primeiro parametro é o nome da coluna e o segundo é a variável de comparação
+		$this->db->where('email', $email);
+		$this->db->where('senha', $senha);
+		
+		//Executa a query
+		$query = $this->db->get('aluno');
+		
+		//Verifica o numero de linhas
+		if ($query->num_rows() == 1) {
+			foreach ($query->result() as $row) {
+				return $row->id;
+			}
+		} else {
+			return false;
+		}
+	}
+	//[block] seted
+	public function getAcademia() {
+		
+	}
+	//[block] seted
 }
 ?>

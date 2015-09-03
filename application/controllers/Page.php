@@ -190,6 +190,51 @@ class Page extends CI_Controller {
 						$this->load->view("login", array("area"=>"personal"));
 					break;
 				}
+			case "go":
+				$email = $this->input->post('email');
+				$senha = $this->input->post('senha');
+				
+				$this->load->library('session');
+				if ($this->session->has_userdata('tipo')) {
+					if ($this->session->userdata('tipo')=="gerente") {
+						header("Location: ?/Gerente");
+					}
+				}
+				switch ($tipo) {
+					case null:
+						$this->load->view("login", array("area"=>"picker"));
+					break;
+					case "aluno":
+						$this->load->model('aluno_md');
+						$id = $this->aluno_md->validate($email, $senha);
+						if($id != false) {
+							$this->session->set_userdata(array("id"=>$id, "tipo"=>"aluno"));
+							header("Location: ?/Aluno/");
+						} else {
+							$this->message("erro_login", "?/Page/login/aluno");
+						}
+					break;
+					case "academia":
+						$this->load->model('gerente_md');
+						$id = $this->gerente_md->validate($email, $senha);
+						if($id != false) {
+							$this->session->set_userdata(array("id"=>$id, "tipo"=>"gerente"));
+							header("Location: ?/Gerente/");
+						} else {
+							$this->message("erro_login", "?/Page/login/academia");
+						}
+					break;
+					case "personal":
+						$this->load->model('personal_md');
+						$id = $this->personal_md->validate($email, $senha);
+						if($id != false) {
+							$this->session->set_userdata(array("id"=>$id, "tipo"=>"personal"));
+							header("Location: ?/Personal/");
+						} else {
+							$this->message("erro_login", "?/Page/login/personal");
+						}
+					break;
+				}
 			break;
 		}
 	}
@@ -221,6 +266,13 @@ class Page extends CI_Controller {
 				$data = array("tipo"=>"success", 
 							  "msg"=>"Cadastro realizado com sucesso!", 
 							  "bt_text"=>"Fazer login",
+							  "bt_href"=>$link);
+				$this->load->view('message', $data);
+				break;
+			case "erro_login":
+				$data = array("tipo"=>"erro", 
+							  "msg"=>"Acesso negado!", 
+							  "bt_text"=>"Tentar novamente",
 							  "bt_href"=>$link);
 				$this->load->view('message', $data);
 				break;

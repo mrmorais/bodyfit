@@ -1,0 +1,33 @@
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+.dark-panel {
+	background-color:#CECECE;
+}
+#footer {
+	margin-top:50px;
+	padding:20px;
+	border-radius: 10px 10px 0px 0px;
+	background: #E5E5E5;
+}
+.exercicio-row td{
+    height:140px;
+	width:100px;
+	
+}
+.exercicio-row td .hover { 
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+.hover {
+	padding:4px;
+}
+.personal-inbox-link:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+.chat-hided {
+	display:none;
+}
