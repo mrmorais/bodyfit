@@ -6,8 +6,9 @@ function() {
 	$(this).children("img").fadeTo(200, 1).end().children(".hover").hide();
 });
 
-$(".personal-inbox").click(function() {
-	var chat_inb = $(this).children(".chat-inbox");
+$(".personal-inbox-link").click(function() {
+	var chat_inb = $(this).parent(".panel-heading").parent(".personal-inbox").children(".chat-inbox");
+	console.log(chat_inb);
 	if (chat_inb.attr("class") == "chat-inbox chat-hided") {
 		chat_inb.fadeIn(500);
 		chat_inb.attr("class", "chat-inbox");
