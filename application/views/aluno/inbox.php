@@ -296,11 +296,46 @@
 						Selecione um personal<hr>
 					</div>
 					<div class="col-md-4">
-						<div class="row personal-inbox">
-							<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
-							<div class="col-md-9"><h4>igor fernandes</h4></div>
+						<div class="chat-panel panel panel-default personal-inbox">
+							<div class="panel-heading">
+								<div class="row personal-inbox-link">
+									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
+									<div class="col-md-9"><h4>igor fernandes</h4>
+									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-chevron-down"></i>
+									</button>
+									</div>
+								</div>
+							</div>
+							<div class="chat-inbox chat-hided">
+								<div class="panel-body">
+									<ul class="chat">
+										<li class="left clearfix">
+											<div class="header">
+												<strong class="primary-font">Jack Sparrow</strong>
+												<small class="pull-right text-muted">
+													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+												</small>
+											</div>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+											</p>
+										</li><!--mensagem-->
+									</ul>
+								</div><!--corpo do chat-->
+								<div class="panel-footer">
+									<div class="input-group">
+										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+										<span class="input-group-btn">
+											<button class="btn btn-warning btn-sm" id="btn-chat">
+												Send
+											</button>
+										</span>
+									</div>
+								</div><!--area de envio-->
+							</div><!--parte que se carrega-->
 						</div>
-					</div>
+					</div><!--chat-->
 					<div class="col-md-4">
 						<div class="chat-panel panel panel-default personal-inbox">
 							<div class="panel-heading">
@@ -343,11 +378,46 @@
 						</div>
 					</div><!--chat-->
 					<div class="col-md-4">
-						<div class="row personal-inbox">
-							<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
-							<div class="col-md-9"><h4>pablo arroxa</h4></div>
+						<div class="chat-panel panel panel-default personal-inbox">
+							<div class="panel-heading">
+								<div class="row personal-inbox-link">
+									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
+									<div class="col-md-9"><h4>pablo arroxa</h4>
+									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-chevron-down"></i>
+									</button>
+									</div>
+								</div>
+							</div>
+							<div class="chat-inbox chat-hided">
+								<div class="panel-body">
+									<ul class="chat">
+										<li class="left clearfix">
+											<div class="header">
+												<strong class="primary-font">Jack Sparrow</strong>
+												<small class="pull-right text-muted">
+													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+												</small>
+											</div>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+											</p>
+										</li><!--mensagem-->
+									</ul>
+								</div><!--corpo do chat-->
+								<div class="panel-footer">
+									<div class="input-group">
+										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+										<span class="input-group-btn">
+											<button class="btn btn-warning btn-sm" id="btn-chat">
+												Send
+											</button>
+										</span>
+									</div>
+								</div><!--area de envio-->
+							</div><!--parte que se carrega-->
 						</div>
-					</div>
+					</div><!--chat-->
 				</div>
 			</div><!-- /.container -->
 			<div class="row" id="footer">
