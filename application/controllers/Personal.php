@@ -21,10 +21,27 @@ class Personal extends CI_Controller {
 	public function index()
 	{
 		$this->auth();
+		$this->load->model("personal_md");
+		
+		$academia = $this->personal_md->pegarAcademia($this->usuarioLogado->id);
 		//Abrir página inicial
-		$this->load->view('personal/home', array("user"=>$this->usuarioLogado));
+		$this->load->view('personal/home', array("user"=>$this->usuarioLogado, "academia"=>$academia));
 	}
-	
+	public function alunos(){
+		$this->auth();
+		$this->load->model("personal_md");
+		$alunos = $this->personal_md->pegarAlunos($this->usuarioLogado->id);
+		//Abrir página inicial
+		$this->load->view('personal/alunos', array("user"=>$this->usuarioLogado, "alunos"=>$alunos));
+		
+	}
+	public function inbox() {
+		$this->auth();
+		$this->load->model("academia_md");
+		$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
+		//Abrir página inicial
+		$this->load->view('personal/inbox', array("user"=>$this->usuarioLogado, "academia"=>$academia));
+	}
 	public function sair() {
 		$this->load->library('session');
 		$this->session->sess_destroy();

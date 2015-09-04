@@ -190,6 +190,7 @@ class Page extends CI_Controller {
 						$this->load->view("login", array("area"=>"personal"));
 					break;
 				}
+				break;
 			case "go":
 				$email = $this->input->post('email');
 				$senha = $this->input->post('senha');

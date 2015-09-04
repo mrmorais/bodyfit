@@ -58,10 +58,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="?/Page/login">fazer login</a>
+						<span class="btn-group">
+						  <a type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Login <span class="caret"></span>
+						  </a>
+						  <ul class="dropdown-menu">
+							<li><a href="?/Page/login/aluno">Aluno</a></li>
+							<li><a href="?/Page/login/personal">Personal</a></li>
+							<li><a href="?/Page/login/academia">Academia</a></li>
+						  </ul>
+						</span>
                     </li>
                     <li class="page-scroll">
-                        <a href="?/Page/cadastro">criar conta</a>
+                        
                     </li>
                 </ul>
             </div>
@@ -79,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="intro-text">
                         <span class="name">BODYFIT</span>
                         <hr class="star-light">
-                        <span class="skills">Web - & - App</span>
+                        <a href="?/Page/cadastro" class="btn btn-danger">CRIAR CONTA</a>
                     </div>
                 </div>
             </div>

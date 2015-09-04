@@ -286,61 +286,139 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Minha conta</h1>
+						<h1 class="page-header">Inbox</h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
 				<!-- /.row -->
 				<div class="row">
 					<div class="col-md-12">
-						<center><h2>Olá, <?php echo $user->nome." ".$user->sobrenome; ?>!</h2><hr class="star-primary"></center>
+						Selecione um personal<hr>
 					</div>
+					<div class="col-md-4">
+						<div class="chat-panel panel panel-default personal-inbox">
+							<div class="panel-heading">
+								<div class="row personal-inbox-link">
+									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
+									<div class="col-md-9"><h4>igor fernandes</h4>
+									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-chevron-down"></i>
+									</button>
+									</div>
+								</div>
+							</div>
+							<div class="chat-inbox chat-hided">
+								<div class="panel-body">
+									<ul class="chat">
+										<li class="left clearfix">
+											<div class="header">
+												<strong class="primary-font">Jack Sparrow</strong>
+												<small class="pull-right text-muted">
+													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+												</small>
+											</div>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+											</p>
+										</li><!--mensagem-->
+									</ul>
+								</div><!--corpo do chat-->
+								<div class="panel-footer">
+									<div class="input-group">
+										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+										<span class="input-group-btn">
+											<button class="btn btn-warning btn-sm" id="btn-chat">
+												Send
+											</button>
+										</span>
+									</div>
+								</div><!--area de envio-->
+							</div><!--parte que se carrega-->
+						</div>
+					</div><!--chat-->
+					<div class="col-md-4">
+						<div class="chat-panel panel panel-default personal-inbox">
+							<div class="panel-heading">
+								<div class="row personal-inbox-link">
+									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
+									<div class="col-md-9"><h4>souza boy</h4>
+									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-chevron-down"></i>
+									</button>
+									</div>
+								</div>
+							</div>
+							<div class="chat-inbox chat-hided">
+								<div class="panel-body">
+									<ul class="chat">
+										<li class="left clearfix">
+											<div class="header">
+												<strong class="primary-font">Jack Sparrow</strong>
+												<small class="pull-right text-muted">
+													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+												</small>
+											</div>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+											</p>
+										</li><!--mensagem-->
+									</ul>
+								</div><!--corpo do chat-->
+								<div class="panel-footer">
+									<div class="input-group">
+										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+										<span class="input-group-btn">
+											<button class="btn btn-warning btn-sm" id="btn-chat">
+												Send
+											</button>
+										</span>
+									</div>
+								</div><!--area de envio-->
+							</div><!--parte que se carrega-->
+						</div>
+					</div><!--chat-->
+					<div class="col-md-4">
+						<div class="chat-panel panel panel-default personal-inbox">
+							<div class="panel-heading">
+								<div class="row personal-inbox-link">
+									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
+									<div class="col-md-9"><h4>pablo arroxa</h4>
+									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-chevron-down"></i>
+									</button>
+									</div>
+								</div>
+							</div>
+							<div class="chat-inbox chat-hided">
+								<div class="panel-body">
+									<ul class="chat">
+										<li class="left clearfix">
+											<div class="header">
+												<strong class="primary-font">Jack Sparrow</strong>
+												<small class="pull-right text-muted">
+													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+												</small>
+											</div>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+											</p>
+										</li><!--mensagem-->
+									</ul>
+								</div><!--corpo do chat-->
+								<div class="panel-footer">
+									<div class="input-group">
+										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+										<span class="input-group-btn">
+											<button class="btn btn-warning btn-sm" id="btn-chat">
+												Send
+											</button>
+										</span>
+									</div>
+								</div><!--area de envio-->
+							</div><!--parte que se carrega-->
+						</div>
+					</div><!--chat-->
 				</div>
-				<div class="row">
-					<div class="col-md-6 panel">
-						<div class="panel-heading">
-							<h3>dados pessoais</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table">
-								<tr>
-									<th>Nome</th>
-									<td><?php echo $user->nome." ".$user->sobrenome; ?></td>
-								</tr>
-								<tr>
-									<th>Cidade</th>
-									<td><?php echo $user->email; ?></td>
-								</tr>
-								<tr>
-									<th>Telefone</th>
-									<td><?php echo $user->telefone; ?></td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<div class="col-md-6 panel">
-						<div class="panel-heading">
-							<h3>minha academia</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table">
-								<tr>
-									<th>Nome</th>
-									<td><?php echo $user->academia->nome; ?></td>
-								</tr>
-								<tr>
-									<th>Endereço</th>
-									<td><?php echo $academia->endereco." - ".$academia->cidade."/".$academia->estado; ?></td>
-								</tr>
-								<tr>
-									<th>Telefone</th>
-									<td><?php echo $academia->telefone; ?></td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-				
 			</div><!-- /.container -->
 			<div class="row" id="footer">
 				<div class="col-md-12">
@@ -360,6 +438,9 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="public/template/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    
+    <!-- Script JS -->
+    <script src="public/js/script.js"></script>
 
     <!-- Morris Charts JavaScript -->
     <script src="public/template/bower_components/raphael/raphael-min.js"></script>
