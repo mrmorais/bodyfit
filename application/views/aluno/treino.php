@@ -305,33 +305,41 @@
 							</tr>
 							<tr class="exercicio-row">
 								<td>
-									<span class="hover"><b>ESTEIRA</b><br>
-									<i class="fa fa-clock-o"></i> 30 minutos</span>
-									<img src="public/img/exe.jpg" width="100%">
+									<div class="exe">
+										<span class="hover">
+											<b>ESTEIRA</b><br>
+											<i class="fa fa-clock-o"></i> 30 minutos
+										</span>
+										<img src="public/img/exe.jpg" width="100%">
+									</div><!--/exe-->
 								</td>
-								<td><span class="hover"><b>ESTEIRA</b><br>
-									<i class="fa fa-clock-o"></i> 30 minutos</span>
-									<img src="public/img/exe.jpg" width="100%"></td>
-								<td></td>
-								<td></td>
-								<td><span class="hover"><b>ESTEIRA</b><br>
-									<i class="fa fa-clock-o"></i> 30 minutos</span>
-									<img src="public/img/exe.jpg" width="100%"></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr class="exercicio-row">
 								<td>
-									
+									<div class="exe">
+										<span class="hover">
+											<b>ESTEIRA</b><br>
+											<i class="fa fa-clock-o"></i> 30 minutos
+										</span>
+										<img src="public/img/exe.jpg" width="100%">
+									</div><!--/exe-->
 								</td>
-								<td><span class="hover"><b>ESTEIRA</b><br>
-									<i class="fa fa-clock-o"></i> 30 minutos</span>
-									<img src="public/img/exe.jpg" width="100%"></td>
 								<td></td>
 								<td></td>
-								<td><span class="hover"><b>ESTEIRA</b><br>
-									<i class="fa fa-clock-o"></i> 30 minutos</span>
-									<img src="public/img/exe.jpg" width="100%"></td>
+								<td>
+									<div class="exe">
+										<span class="hover">
+											<b>ESTEIRA</b><br>
+											<i class="fa fa-clock-o"></i> 30 minutos
+										</span>
+										<img src="public/img/exe.jpg" width="100%">
+									</div><!--/exe-->
+									<div class="exe">
+										<span class="hover">
+											<b>ESTEIRA</b><br>
+											<i class="fa fa-clock-o"></i> 30 minutos
+										</span>
+										<img src="public/img/exe.jpg" width="100%">
+									</div><!--/exe-->
+								</td>
 								<td></td>
 								<td></td>
 							</tr>

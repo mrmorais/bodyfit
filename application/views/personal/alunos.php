@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<html>
 
 <head>
 
@@ -9,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+	
     <title>Bodyfit</title>
 
     <!-- Bootstrap Core CSS -->
@@ -41,10 +41,83 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script>
+	var valorNome;
+	
+	function dinamica(){
+		//~ valorNome = document.getElementById('nome').value;
+		//~ $.ajax({
+		  //~ type: 'post',
+		  //~ url: '?/Personal/usuarios',
+		  //~ data: {
+				//~ escrever: "true",
+				//~ filtro: valorNome
+		  //~ }
+		  //~ error: function() {
+				//~ alert('Erro ao tentar a��o!');
+		   //~ },
+		   //~ success: function( texto ) { 
+				 //~ $("#resultados").val( texto );
+		   //~ }
+		//~ });
+		var nome = $("#busca-nome").val();
+		console.log(nome.length);
+		
+		$.ajax({
+			type: 'post',
+			url: '?/Personal/searchAluno',
+			data: { q:nome}
+		}).success(function(data) {
+			var obj = $.parseJSON(data);
+			console.log(obj);
+			var html = "";
+			if (obj.length > 0) {
+				html += "<tr>";
+				html += "<th colspan='5'>Resultados da busca</th>";
+				html += "</tr>";
+			} else {
+				html += "<tr>";
+				html += "<th colspan='5'>Sem resultados para a busca</th>";
+				html += "</tr>";
+			}
+			
+			for (var n = 0; n < obj.length; n++) {
+				html+= "<tr>";
+				html+= "<td>"+obj[n].id+"</td>";
+				html+= "<td>"+obj[n].nome+"</td>";
+				html+= "<td>"+obj[n].email+"</td>";
+				html+= "<td>"+obj[n].telefone+"</td>";
+				html+= "<td>"+obj[n].endereco+"</td>";
+				html+= "<td><a href='?/Personal/aluno/"+obj[n].id+"' class='btn btn-primary'>Perfil</a></td>";
+				html+= "</tr>";
+			}
+			$("#resultados").html(html);
+			
+			if (nome.length == 0) {
+				$("#resultados").html("");
+			}
+		});
+		
+		console.log(1);
+	}
+	function pegarData(){
+		var data = new Date();
+		var dia = data.getDate();
+		var mes = data.getMonth();
+		var ano = data.getFullYear();
+		
+		mes += 1;
+		var tempo = document.getElementById("tempo");
+		tempo.innerHTML = dia+"/"+mes+"/"+ano+"";
+	}
+</script>
 
 </head>
 
-<body>
+<body onload="pegarData()">
+
 
     <div id="wrapper">
 
@@ -57,7 +130,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Bodyfit</a>
+                <a class="navbar-brand" href="?/Personal/">Bodyfit</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -286,7 +359,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Alunos</h1>
+						<h1 class="page-header">Minha conta</h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -301,70 +374,53 @@
 						<div class="panel-heading">
 							<h3>Meus alunos</h3>
 						</div>
+						Digite um nome:
+						<input type="text" name="nome" id="busca-nome" onkeyup="dinamica()" autocomplete="off">
+						<div id="carregando"></div>
+						<div id=listaDeProdutos></div>
 						<div class="panel-body">
 							<table class="table">
 								<tr>
+									<th>ID</th>
 									<th>Nome</th>
-									<td><?php for($i=0; $i<count($alunos); $i++){ echo $alunos[$i]['nome']." ".$alunos[$i]['sobrenome']."<br>";} ?></td>
+									<th>Email</th>
+									<th>Telefone</th>
+									<th>Endereço</th>
+									<th></th>
 								</tr>
+								<tbody id="resultados">
+								</tbody>
+								<tbody id="lista">
+								
+									<?php 
+									
+									for($i=0; $i<count($alunos); $i++){ 
+										$idA= $alunos[$i]['id'];
+										$nomeA = $alunos[$i]['nome'];
+										$sobrenomeA = $alunos[$i]['sobrenome'];
+										$emailA = $alunos[$i]['email'];
+										$telefoneA =$alunos[$i]['telefone'];
+										$enderecoA = $alunos[$i]['endereco'];
+										echo "<tr>".
+										"<td>".$idA."</td>".
+										"<td>".$nomeA." ".$sobrenomeA ."</td>".
+										"<td>".$emailA."</td>".
+										"<td>".$telefoneA."</td>".
+										"<td>".$enderecoA."</td>".
+										"<td><a href='?/Personal/aluno/".$idA."' class='btn btn-primary'>Perfil</a></td>".
+										"</tr>";
+										
+									}
+									?>
+								</tbody>
 							</table>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<center><h2>Última avaliação</h2><hr class="star-primary"><h3>24/04/2015</h3></center>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<table class="table">
-							<tr>
-								<th>Peso</th>
-								<th>Altura</th>
-								<th>Ombro</th>
-								<th>Tórax</th>
-								<th>Cintura</th>
-								<th>Braços</th>
-							</tr>
-							<tr>
-								<td>72.0</td>
-								<td>1.70</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-							</tr>
-						</table>
-						<table class="table">
-							<tr>
-								<th>Coxas</th>
-								<th>Glúteo</th>
-								<th>Punho</th>
-								<th>Abdominal</th>
-								<th>Tornozelo</th>
-								<th>Panturrilha</th>
-							</tr>
-							<tr>
-								<td>72.0</td>
-								<td>1.70</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5 col-centered">
-						<button class="btn btn-success btn-block">Solicitar avaliação</button>
 					</div>
 				</div>
 			</div><!-- /.container -->
 			<div class="row" id="footer">
 				<div class="col-md-12">
-				Siblings 2015
+				Siblings <?php echo date("Y"); ?>
 				</div>
 			</div>
         </div>
@@ -388,6 +444,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="public/template/dist/js/sb-admin-2.js"></script>
+	
 
 </body>
 

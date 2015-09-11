@@ -43,6 +43,22 @@ class Aluno extends CI_Controller {
 		$this->load->view('aluno/inbox', array("user"=>$this->usuarioLogado, "academia"=>$academia));
 	}
 	
+	public function avaliacoes() {
+		$this->auth();
+		$this->load->model("academia_md");
+		$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
+		//Abrir página inicial
+		$this->load->view('aluno/avaliacoes', array("user"=>$this->usuarioLogado, "academia"=>$academia));
+	}
+	
+	public function relatorios() {
+		$this->auth();
+		$this->load->model("academia_md");
+		$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
+		//Abrir página inicial
+		$this->load->view('aluno/relatorios', array("user"=>$this->usuarioLogado, "academia"=>$academia));
+	}
+	
 	public function sair() {
 		$this->load->library('session');
 		$this->session->sess_destroy();

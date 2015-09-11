@@ -1,4 +1,4 @@
-$(".exercicio-row td").hover(
+$(".exercicio-row td .exe").hover(
 function() {
 	$(this).children("img").fadeTo(200, 0.25).end().children(".hover").show();
 }, 

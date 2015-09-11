@@ -24,9 +24,21 @@ class Personal extends CI_Controller {
 		$this->load->model("personal_md");
 		
 		$academia = $this->personal_md->pegarAcademia($this->usuarioLogado->id);
-		//Abrir página inicial
-		$this->load->view('personal/home', array("user"=>$this->usuarioLogado, "academia"=>$academia));
+		$avaliacoes = $this->personal_md->avaliacoesDiarias($this->usuarioLogado->id);
+		
+		$this->load->view('personal/home', array("user"=>$this->usuarioLogado, "academia"=>$academia, "avaliacoes"=>$avaliacoes));
 	}
+	
+	public function searchAluno() {
+		$this->auth();
+		$q = $this->input->post("q");
+		
+		$this->load->model("personal_md");
+		$resultados = $this->personal_md->searchAluno($q, $this->usuarioLogado->id);
+		
+		echo json_encode($resultados);
+	}
+	
 	public function alunos(){
 		$this->auth();
 		$this->load->model("personal_md");

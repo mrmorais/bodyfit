@@ -57,7 +57,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Bodyfit</a>
+                <a class="navbar-brand" href="?/Personal/">Bodyfit</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -319,55 +319,21 @@
 							</table>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<center><h2>Última avaliação</h2><hr class="star-primary"><h3>24/04/2015</h3></center>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<table class="table">
-							<tr>
-								<th>Peso</th>
-								<th>Altura</th>
-								<th>Ombro</th>
-								<th>Tórax</th>
-								<th>Cintura</th>
-								<th>Braços</th>
-							</tr>
-							<tr>
-								<td>72.0</td>
-								<td>1.70</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-							</tr>
-						</table>
-						<table class="table">
-							<tr>
-								<th>Coxas</th>
-								<th>Glúteo</th>
-								<th>Punho</th>
-								<th>Abdominal</th>
-								<th>Tornozelo</th>
-								<th>Panturrilha</th>
-							</tr>
-							<tr>
-								<td>72.0</td>
-								<td>1.70</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5 col-centered">
-						<button class="btn btn-success btn-block">Solicitar avaliação</button>
+					<div class="col-md-6 panel">
+						<div class="panel-heading">
+							<h3>avaliações para hoje</h3>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-body">
+							<?php
+							if (count($avaliacoes) > 0) {
+								echo "<center><h1>".count($avaliacoes)."</h1></center>";
+							} else {
+								echo "<center><h2>Nenhuma</h2></center>";
+							}
+							?>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div><!-- /.container -->

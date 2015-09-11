@@ -44,10 +44,31 @@ class Personal_md extends CI_Model {
 		}
 		return false;
 	}
+	public function avaliacoesDiarias($id){
+		$this->load->database();
+		
+		$data = date("Y-m-d");
+		$this->db->where("personal_id", $id);
+		$this->db->where("data", $data);
+		$query = $this->db->get("avaliacao_marcada");
+		
+		$arrayAvaliacoes = array();
+		
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$idAv= $row->id;
+				$dataAv = $row->data;
+				$idAlunoAv = $row->aluno_id;
+				
+				array_push($arrayAvaliacoes, array("id"=>$idAv, "aluno_id"=>$idAlunoAv, "data"=>$dataAv,"quantidade"=>$query->num_rows()));
+			}
+		}
+		return $arrayAvaliacoes;
+	}
 	public function pegarAlunos($id){
 		$this->load->database();
 		
-		$sql = "SELECT aluno.id, aluno.nome, aluno.sobrenome FROM aluno, personal_has_academia, academia, personal WHERE personal.id = ? and personal_has_academia.personal_id = personal.id and academia.id = personal_has_academia.academia_id and academia.id = aluno.academia_id";
+		$sql = "SELECT aluno.* FROM aluno, personal_has_academia, academia, personal WHERE personal.id = ? and personal_has_academia.personal_id = personal.id and academia.id = personal_has_academia.academia_id and academia.id = aluno.academia_id";
 		$query = $this->db->query($sql, array($id));
 		
 		$arrayAlunos = array();
@@ -57,9 +78,13 @@ class Personal_md extends CI_Model {
 				$idA= $row->id;
 				$nomeA = $row->nome;
 				$sobrenomeA = $row->sobrenome;
+				$emailA = $row->email;
+				$telefoneA = $row->telefone;
+				$enderecoA = $row->endereco;
+				
 				
 				//$arrayAlunos = array("id"=>$idA, "nome"=>$nomeA, "sobrenome"=>$sobrenomeA);
-				array_push($arrayAlunos, array("id"=>$idA, "nome"=>$nomeA, "sobrenome"=>$sobrenomeA));
+				array_push($arrayAlunos, array("id"=>$idA, "nome"=>$nomeA, "sobrenome"=>$sobrenomeA, "email"=>$emailA,"telefone"=>$telefoneA, "endereco"=>$enderecoA));
 				//return $arrayAcademia;
 			}
 			return $arrayAlunos;
@@ -108,6 +133,17 @@ class Personal_md extends CI_Model {
 		} else {
 			return false;
 		}
+	}
+	
+	public function searchAluno($busca, $p_id) {
+		$this->load->database();
+		$sql = "SELECT aluno.* FROM aluno, personal_has_academia, academia, personal WHERE personal.id = ? and personal_has_academia.personal_id = personal.id and academia.id = personal_has_academia.academia_id and academia.id = aluno.academia_id and (aluno.nome like '".$busca."%' or aluno.sobrenome like '".$busca."%');";
+		$query = $this->db->query($sql, array($p_id));
+		$resultados = [];
+		foreach ($query->result() as $row) {
+			$resultados[] = array("id"=>$row->id, "nome"=>$row->nome." ".$row->sobrenome, "email"=>$row->email, "endereco"=>$row->endereco, "telefone"=>$row->telefone);
+		}
+		return $resultados;
 	}
 }
 ?>
