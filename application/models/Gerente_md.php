@@ -46,7 +46,7 @@ class Gerente_md extends CI_Model {
 	
 	public function setarAcademia() {
 		$this->load->model("academia_md");
-		$academias = $this->getAcademiasId(9);
+		$academias = $this->getAcademiasId(1);
 		$this->academia = $this->academia_md->setar($academias[0]);
 	}
 	

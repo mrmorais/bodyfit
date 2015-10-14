@@ -29,7 +29,7 @@ class Academia_md extends CI_Model {
 		return $this;
 	}
 	
-	public function emitirCodigo($tipo) {
+	public function emitirCodigo() {
 		//$tipo indica se é para um aluno ou para um personal. "aluno"|"personal"
 		$caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 		$codigo = '';
@@ -40,12 +40,64 @@ class Academia_md extends CI_Model {
 		}
 		
 		$this->load->database();
-		$dados = array("academia_id"=>$this->id, "codigo"=>$codigo, "tipo"=>$tipo);
+		$dados = array("academia_id"=>$this->id, "codigo"=>$codigo);
 		if($this->db->insert("codigo_acesso", $dados)) {
 			return $codigo;
 		} else {
 			return false;
 		}
+	}
+	
+	public function buscarAluno($id){
+		$this->load->database(); 
+		
+		$query = $this->db->query('SELECT id, nome, sobrenome, email FROM aluno');
+		$alunos = [];
+		foreach ($query->result() as $row) {
+			
+			$alunos[] = array("id"=>$row->id, "nome"=>$row->nome, "sobrenome"=> $row->sobrenome, "email"=> $row->email);
+		}
+		
+		return $alunos;
+	}
+	
+	public function buscarPersonal($id){
+		$this->load->database();
+		
+		$query = $this->db->query('SELECT id, nome, sobrenome, email FROM personal');
+		$personal = [];
+		foreach ($query->result() as $row) {
+			
+			$personal[] = array("id"=>$row->id, "nome"=>$row->nome, "sobrenome"=> $row->sobrenome, "email"=> $row->email);
+		}
+		
+		return $personal;
+	}
+	
+	public function buscarPraticas(){
+		$this->load->database();
+		
+		$query = $this->db->query('SELECT * FROM pratica');
+		$pratica = [];
+		foreach ($query->result() as $row) {
+			
+			$pratica[] = array("id"=>$row->id, "nome"=>$row->nome, "descricao"=> $row->descricao, "musculo"=> $row->musculo, "categoria"=> $row->categoria_id);
+		}
+		
+		return $pratica;
+	}
+	public function praticasCadastradas($id){
+		$this->load->database();
+		
+		$this->db->where("academia_id", $id);
+		$query = $this->db->get('academia_has_pratica');
+		
+		foreach ($query->result() as $row) {
+			
+			$exercicios[] = array("id"=>$row->academia_id);
+		}
+		
+		return $exercicios;
 	}
 }
 ?>

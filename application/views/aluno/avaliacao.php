@@ -41,7 +41,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body>
@@ -59,8 +58,6 @@
                 </button>
                 <a class="navbar-brand" href="index.html">Bodyfit</a>
             </div>
-            <!-- /.navbar-header -->
-
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
@@ -92,103 +89,32 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Minha conta</h1>
+						<h1 class="page-header"><a href="?/Aluno/avaliacoes"><span class="glyphicon glyphicon-chevron-left"></span></a>Avaliacao - Nº 1</h1>
 					</div>
 					<!-- /.col-lg-12 -->
-				</div>
-				<!-- /.row -->
+				</div><!-- /.row -->
 				<div class="row">
 					<div class="col-md-12">
-						<center><h2>Olá, <?php echo $user->nome." ".$user->sobrenome; ?>!</h2><hr class="star-primary"></center>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 panel">
-						<div class="panel-heading">
-							<h3>dados pessoais</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table">
-								<tr>
-									<th>Nome</th>
-									<td><?php echo $user->nome." ".$user->sobrenome; ?></td>
-								</tr>
-								<tr>
-									<th>Cidade</th>
-									<td><?php echo $user->email; ?></td>
-								</tr>
-								<tr>
-									<th>Telefone</th>
-									<td><?php echo $user->telefone; ?></td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<div class="col-md-6 panel">
-						<div class="panel-heading">
-							<h3>minha academia</h3>
-						</div>
-						<div class="panel-body">
-							<table class="table">
-								<tr>
-									<th>Nome</th>
-									<td><?php echo $academia->nome; ?></td>
-								</tr>
-								<tr>
-									<th>Endereço</th>
-									<td><?php echo $academia->endereco." - ".$academia->cidade."/".$academia->estado; ?></td>
-								</tr>
-								<tr>
-									<th>Telefone</th>
-									<td><?php echo $academia->telefone; ?></td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<center><h2>Última avaliação</h2><hr class="star-primary"><h3>24/04/2015</h3></center>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
+						<h4>Dados da avaliação</h4>
 						<table class="table">
 							<tr>
-								<th>Peso</th>
-								<th>Altura</th>
-								<th>Ombro</th>
-								<th>Tórax</th>
-								<th>Cintura</th>
-								<th>Braços</th>
+								<th>Número da avaliacão</th>
+								<th>Personal avaliador</th>
+								<th>Data da avaliacão</th>
 							</tr>
 							<tr>
-								<td>72.0</td>
-								<td>1.70</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
+							<?php
+								echo "<td>".$av['id']."</td>";
+								echo "<td>".$av['p_nome']."</td>";
+								echo "<td>".$av['p_sobrenome']."</td>";
+							?>
 							</tr>
 						</table>
-						<table class="table">
-							<tr>
-								<th>Coxas</th>
-								<th>Glúteo</th>
-								<th>Punho</th>
-								<th>Abdominal</th>
-								<th>Tornozelo</th>
-								<th>Panturrilha</th>
-							</tr>
-							<tr>
-								<td>72.0</td>
-								<td>1.70</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-							</tr>
-						</table>
+					</div>
+				</div><!--historico-->
+				<div class="row">
+					<div class="col-md-12">
+						<h4>Medidas</h4>
 					</div>
 				</div>
 			</div><!-- /.container -->
@@ -210,6 +136,9 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="public/template/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    
+    <!-- Script JS -->
+    <script src="public/js/script.js"></script>
 
     <!-- Morris Charts JavaScript -->
     <script src="public/template/bower_components/raphael/raphael-min.js"></script>
@@ -218,7 +147,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="public/template/dist/js/sb-admin-2.js"></script>
-
 </body>
 
 </html>

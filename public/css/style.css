@@ -14,20 +14,43 @@
 .exercicio-row td{
     height:140px;
 	width:100px;
-	
 }
-.exercicio-row td .hover { 
+.exe {
+	border-bottom:1px solid;
+	padding:0px;
+	margin-bottom:6px;
+}
+/*.exercicio-row td .hover { 
     display: none;
     position: absolute;
     z-index: 2;
 }
 .hover {
 	padding:4px;
-}
+}*/
 .personal-inbox-link:hover {
 	opacity: 0.8;
 	cursor: pointer;
 }
 .chat-hided {
 	display:none;
+}
+#creditos {
+	display:none;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #creditos {
+	display: inline;
+  }
+  #printable, #printable * {
+    visibility: visible;
+  }
+  #printable {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
 }

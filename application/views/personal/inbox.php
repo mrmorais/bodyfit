@@ -41,7 +41,13 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script>
+	var enviar = function(id) {
+		var msg = $("#campo-"+id).val();
+		$.post("?/Personal/enviarMsg", { msg : msg, a_id : id });
+		window.location.reload();
+	};
+    </script>
 </head>
 
 <body>
@@ -61,207 +67,13 @@
             </div>
             <!-- /.navbar-header -->
 
+            <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
                         <li><a href="?/Gerente/sair"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
@@ -293,42 +105,50 @@
 				<!-- /.row -->
 				<div class="row">
 					<div class="col-md-12">
-						Selecione um personal<hr>
+						Selecione um Aluno<hr>
 					</div>
-					<div class="col-md-4">
+					<?php foreach ($inbox as $chat) { ?>
+					<div class="col-md-4" id="<?php echo $chat['info']['id']; ?>">
 						<div class="chat-panel panel panel-default personal-inbox">
 							<div class="panel-heading">
 								<div class="row personal-inbox-link">
 									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
-									<div class="col-md-9"><h4>igor fernandes</h4>
-									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-chevron-down"></i>
-									</button>
+										<div class="col-md-9"><h4><?php echo $chat['info']['nome']." ".$chat['info']['sobrenome']; ?></h4>
+										<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+											<i class="fa fa-chevron-down"></i>
+										</button>
+										</div>
 									</div>
 								</div>
-							</div>
 							<div class="chat-inbox chat-hided">
 								<div class="panel-body">
 									<ul class="chat">
+										<?php 
+										if($chat['msgs'] == 0) { 
+											echo "<h2>Sem mensagens</h2>";
+										} else {
+											foreach ($chat['msgs'] as $msg) {
+										?>
 										<li class="left clearfix">
 											<div class="header">
-												<strong class="primary-font">Jack Sparrow</strong>
+												<strong class="primary-font"><?php echo $msg['autor']; ?></strong>
 												<small class="pull-right text-muted">
-													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
 												</small>
 											</div>
 											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+												<?php echo $msg['msg']; ?>
 											</p>
 										</li><!--mensagem-->
+										<?php }
+										} ?>
 									</ul>
 								</div><!--corpo do chat-->
 								<div class="panel-footer">
 									<div class="input-group">
-										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+										<input id="campo-<?php echo $chat['info']['id']; ?>" type="text" class="form-control input-sm" placeholder="Digite aqui sua mensagem..." />
 										<span class="input-group-btn">
-											<button class="btn btn-warning btn-sm" id="btn-chat">
-												Send
+											<button class="btn btn-warning btn-sm" id="btn-chat" onclick="enviar(<?php echo $chat['info']['id']; ?>)">
+												Enviar
 											</button>
 										</span>
 									</div>
@@ -336,88 +156,7 @@
 							</div><!--parte que se carrega-->
 						</div>
 					</div><!--chat-->
-					<div class="col-md-4">
-						<div class="chat-panel panel panel-default personal-inbox">
-							<div class="panel-heading">
-								<div class="row personal-inbox-link">
-									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
-									<div class="col-md-9"><h4>souza boy</h4>
-									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-chevron-down"></i>
-									</button>
-									</div>
-								</div>
-							</div>
-							<div class="chat-inbox chat-hided">
-								<div class="panel-body">
-									<ul class="chat">
-										<li class="left clearfix">
-											<div class="header">
-												<strong class="primary-font">Jack Sparrow</strong>
-												<small class="pull-right text-muted">
-													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-												</small>
-											</div>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-											</p>
-										</li><!--mensagem-->
-									</ul>
-								</div><!--corpo do chat-->
-								<div class="panel-footer">
-									<div class="input-group">
-										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-										<span class="input-group-btn">
-											<button class="btn btn-warning btn-sm" id="btn-chat">
-												Send
-											</button>
-										</span>
-									</div>
-								</div><!--area de envio-->
-							</div><!--parte que se carrega-->
-						</div>
-					</div><!--chat-->
-					<div class="col-md-4">
-						<div class="chat-panel panel panel-default personal-inbox">
-							<div class="panel-heading">
-								<div class="row personal-inbox-link">
-									<div class="col-md-3"><img src="public/img/profile.png" width="100%"></div>
-									<div class="col-md-9"><h4>pablo arroxa</h4>
-									<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-chevron-down"></i>
-									</button>
-									</div>
-								</div>
-							</div>
-							<div class="chat-inbox chat-hided">
-								<div class="panel-body">
-									<ul class="chat">
-										<li class="left clearfix">
-											<div class="header">
-												<strong class="primary-font">Jack Sparrow</strong>
-												<small class="pull-right text-muted">
-													<i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-												</small>
-											</div>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-											</p>
-										</li><!--mensagem-->
-									</ul>
-								</div><!--corpo do chat-->
-								<div class="panel-footer">
-									<div class="input-group">
-										<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-										<span class="input-group-btn">
-											<button class="btn btn-warning btn-sm" id="btn-chat">
-												Send
-											</button>
-										</span>
-									</div>
-								</div><!--area de envio-->
-							</div><!--parte que se carrega-->
-						</div>
-					</div><!--chat-->
+					<?php } ?>
 				</div>
 			</div><!-- /.container -->
 			<div class="row" id="footer">

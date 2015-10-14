@@ -302,22 +302,19 @@
 						<div class="panel-heading">
 							<h3>minha academia</h3>
 						</div>
-						<div class="panel-body">
-							<table class="table">
-								<tr>
-									<th>Nome</th>
-									<td><?php echo $academia['nome']; ?></td>
-								</tr>
-								<tr>
-									<th>Endereço</th>
-									<td><?php echo $academia['endereco']." - ".$academia['cidade']."/".$academia['estado']; ?></td>
-								</tr>
-								<tr>
-									<th>Telefone</th>
-									<td><?php echo $academia['telefone']; ?></td>
-								</tr>
-							</table>
-						</div>
+						
+							<?php
+							if($academia['cidade']=="" and $academia['nome']=="" and $academia['telefone']==""){
+								echo "<div class='panel panel-default'><div class='panel-body'><center><h2>Não possui contrato</h2></center></div></div>";
+							}else{
+								echo	'<div class="panel-body"><table class="table">'.
+										"<tr><th>Nome</th><td>".$academia['nome']."</td></tr>".
+										"<tr><th>Endereço</th><td>".$academia['endereco']." - ".$academia['cidade']."/".$academia['estado']."</td></tr>".
+										"<tr><th>Telefone</th><td>".$academia['telefone']."</td></tr>".
+										'</table></div>';
+							}
+							?>
+							
 					</div>
 					<div class="col-md-6 panel">
 						<div class="panel-heading">

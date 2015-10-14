@@ -145,5 +145,90 @@ class Personal_md extends CI_Model {
 		}
 		return $resultados;
 	}
+	public function pegarTodos($busca, $p_id) {
+		$this->load->database();
+		if($busca == "true"){
+			$sql = "SELECT aluno.* FROM aluno, personal_has_academia, academia, personal WHERE personal.id = ? and personal_has_academia.personal_id = personal.id and academia.id = personal_has_academia.academia_id and academia.id = aluno.academia_id";
+			$query = $this->db->query($sql, array($p_id));
+			$resultados = [];
+			foreach ($query->result() as $row) {
+				$resultados[] = array("id"=>$row->id, "nome"=>$row->nome." ".$row->sobrenome, "email"=>$row->email, "endereco"=>$row->endereco, "telefone"=>$row->telefone);
+			}
+			return $resultados;
+		}else{
+			return false;
+		}
+	}
+	public function pegarAvaliacoes($p_id) {
+		$this->load->database();
+		$data = date("Y-m-d");
+			$sql = "SELECT avaliacao_marcada.id, aluno.nome, aluno.sobrenome, aluno.sexo, avaliacao_marcada.data FROM aluno, avaliacao_marcada, personal WHERE personal.id = ? and avaliacao_marcada.personal_id = personal.id and aluno.id = avaliacao_marcada.aluno_id and avaliacao_marcada.data >= '$data' ORDER BY avaliacao_marcada.data ASC";
+			$query = $this->db->query($sql, array($p_id));
+			$resultados = [];
+			
+			foreach ($query->result() as $row) {
+				
+				if($row->sexo == "m" or $row->sexo =="M"){
+					$sexoAv = "Masculino";
+				}
+				if($row->sexo == "f" or $row->sexo == "F"){
+						$sexoAv = "Feminino";
+				}
+				
+				$data_inicial = date("Y-m-d");
+				$data_final = $row->data;
+
+				$diferenca = strtotime($data_final) - strtotime($data_inicial);
+				
+				$dias = floor($diferenca / (60 * 60 * 24));
+				
+				switch($dias){
+					case 0:
+						$status = "Hoje";
+						break;
+					case 1:
+						$status = "Amanhã";
+						break;
+					default:
+						$status = "Faltam ".$dias." dias";
+				}
+											
+				$resultados[] = array("id_av"=>$row->id, "nome"=>$row->nome." ".$row->sobrenome, "sexo"=>$sexoAv, "data_marcada"=>$row->data, "dias" => $status);
+			}
+			return $resultados;
+	}
+	public function agendarAvaliacao($idAluno, $p_id, $data) {
+		$this->load->database();
+		$sql = "INSERT INTO `avaliacao_marcada`(`personal_id`, `aluno_id`, `data`) VALUES ('$p_id', '$idAluno', '$data')";
+		$query = $this->db->query($sql);
+		
+		if ($query) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public function alterarAvaliacao($id, $p_id, $novaData, $dataAntiga) {
+		$this->load->database();
+		$sql = "UPDATE `avaliacao_marcada` SET `data`='$novaData' WHERE `id`='$id' and `personal_id` = '$p_id' and `data` = '$dataAntiga'";
+		$query = $this->db->query($sql);
+		
+		if ($query) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public function deletarAvaliacao($id, $p_id) {
+		$this->load->database();
+		$sql = "DELETE FROM `avaliacao_marcada` WHERE `id`='$id' and `personal_id`='$p_id'";
+		$query = $this->db->query($sql);
+		
+		if ($query) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 ?>

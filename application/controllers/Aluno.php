@@ -31,24 +31,64 @@ class Aluno extends CI_Controller {
 		$this->auth();
 		$this->load->model("academia_md");
 		$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
-		//Abrir página inicial
-		$this->load->view('aluno/treino', array("user"=>$this->usuarioLogado, "academia"=>$academia));
+		$treino = $this->usuarioLogado->getTreino();
+		//Abrir página de treinos
+		$this->load->view('aluno/treino', array("user"=>$this->usuarioLogado, "academia"=>$academia, "treino"=>$treino));
 	}
 	
 	public function inbox() {
 		$this->auth();
 		$this->load->model("academia_md");
+		$this->load->model("mensagem_md");
+		$inbox = $this->mensagem_md->getMensagens($this->usuarioLogado->id, "aluno");
 		$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
 		//Abrir página inicial
-		$this->load->view('aluno/inbox', array("user"=>$this->usuarioLogado, "academia"=>$academia));
+		$this->load->view('aluno/inbox', array("user"=>$this->usuarioLogado, "academia"=>$academia, "inbox"=>$inbox));
+	}
+	public function enviarMsg() {
+		$this->auth();
+		
+		$this->load->model("mensagem_md");
+		$msg = $this->input->post("msg");
+		$p_id = $this->input->post("p_id");
+		$this->mensagem_md->enviar($this->usuarioLogado->id, $p_id, $msg, "aluno");
 	}
 	
-	public function avaliacoes() {
+	public function avaliacoes($action = "show", $id=0) {
 		$this->auth();
-		$this->load->model("academia_md");
-		$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
-		//Abrir página inicial
-		$this->load->view('aluno/avaliacoes', array("user"=>$this->usuarioLogado, "academia"=>$academia));
+		switch($action) {
+			case "show":
+				$this->load->model("academia_md");
+				$this->load->model("avaliacao_md");
+				$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
+				$proximaAvaliacao = $this->usuarioLogado->getProximaAvaliacao();
+				$avaliacoes = $this->avaliacao_md->getAvaliacoesByUserId($this->usuarioLogado->id);
+				$this->load->view('aluno/avaliacoes', array("user"=>$this->usuarioLogado, 
+															"academia"=>$academia, 
+															"next_av"=>$proximaAvaliacao,
+															"avaliacoes"=>$avaliacoes));
+				break;
+			case "cancelar":
+				$this->usuarioLogado->cancelarAvaliacaoMarcada($id);
+				header("Location: ?/Aluno/avaliacoes");
+				break;
+			default:
+				show_404();
+		}	
+	}
+	
+	public function avaliacao($id=0) {
+		if ($id == 0) {
+			show_404();
+		}
+		
+		$this->auth();
+		$this->load->model("avaliacao_md");
+		$avaliacao = $this->avaliacao_md->getAvaliacao($id, $this->usuarioLogado->id);
+		if ($avaliacao == null) {
+			show_404();
+		}
+		$this->load->view("aluno/avaliacao", array("av"=>$avaliacao));
 	}
 	
 	public function relatorios() {

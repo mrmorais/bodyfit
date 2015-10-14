@@ -1,5 +1,6 @@
 ﻿<?php
 class Aluno_md extends CI_Model {
+	public $id;
 	public $nome;
 	public $sobrenome;
 	public $data_nascimento;
@@ -14,7 +15,7 @@ class Aluno_md extends CI_Model {
 		//Retorno: se não existe= false
 		$this->load->database();
 		
-		$query = $this->db->query("SELECT * FROM codigo_acesso WHERE codigo = ? and tipo = ? and ativo = 1 LIMIT 1", array($codigo, "aluno"));
+		$query = $this->db->query("SELECT * FROM codigo_acesso WHERE codigo = ? and ativo = 1 LIMIT 1", array($codigo));
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
 				$this->desabilitarCodigoDeAcesso($row->id);
@@ -65,10 +66,17 @@ class Aluno_md extends CI_Model {
 			return 0;
 		}
 	}
+	
 	public function formatarData($data) {
 		$data = explode("/", $data);
 		return $data[2]."-".$data[1]."-".$data[0];
 	}
+	
+	public function reformatarData($data) {
+		$phpdata = strtotime($data);
+		return date("d/m/Y", $phpdata);
+	}
+	
 	public function emailExiste($email) {
 		$this->load->database();
 		$sql = "SELECT * FROM aluno WHERE email = ?";
@@ -100,6 +108,52 @@ class Aluno_md extends CI_Model {
 	//[block] seted
 	public function getAcademia() {
 		
+	}
+	
+	public function getProximaAvaliacao() {
+		$this->load->database();
+		$q = $this->db->query("SELECT av.*, p.nome, p.sobrenome FROM avaliacao_marcada as av, personal as p WHERE aluno_id=? and data>=now() and av.personal_id=p.id order by data limit 1;", array($this->id));
+		if ($q->num_rows() > 0) {
+			foreach($q->result() as $row) {
+				return array("id"=>$row->id, "p_nome"=>$row->nome, "p_sobrenome"=>$row->sobrenome, "data"=>$this->reformatarData($row->data));
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	public function cancelarAvaliacaoMarcada($id) {
+		$this->load->database();
+		$q = $this->db->delete("avaliacao_marcada", array("id"=>$id, "aluno_id"=>$this->id));
+	}
+	
+	public function getTreino() {
+		$this->load->database();
+		$q = $this->db->query("SELECT e.series, e.repeticoes, p.musculo, p.nome, e.tempo, c.nome as 'categoria', d.dia
+								FROM execucao as e, aluno as a, treino as t, pratica as p, categoria as c, dia as d
+								WHERE 
+									t.aluno_id = a.id 
+									and t.id = e.treino_id
+									and e.academia_has_pratica_pratica_id = p.id
+									and p.categoria_id = c.id
+									and e.id = d.execucao_id
+									and a.id=?
+									", array($this->id));
+		$execs = [];
+		if($q->num_rows() > 0) {
+			foreach($q->result() as $row) {
+				$execs[] = array("series"=>$row->series,
+								 "repeticoes"=>$row->repeticoes,
+								 "musculo"=>$row->musculo,
+								 "nome"=>$row->nome,
+								 "categoria"=>$row->categoria,
+								 "tempo"=>$row->tempo,
+								 "dia"=>$row->dia);
+			}
+			return $execs;
+		} else {
+			return false;
+		}
 	}
 	//[block] seted
 }

@@ -44,15 +44,13 @@
     
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script>
-	pegarTodos();
+	pegarTodasAvaliacoes();
 	
-	function dinamica(){
-		var nome = $("#busca-nome").val();
-		
+	function pegarTodasAvaliacoes(){
 		$.ajax({
 			type: 'post',
-			url: '?/Personal/searchAluno',
-			data: { q:nome}
+			url: '?/Personal/pegarTodasAvaliacoes',
+			data: { t:"true"}
 		}).success(function(data) {
 			var obj = $.parseJSON(data);
 			//console.log(obj);
@@ -61,83 +59,71 @@
 				
 			} else {
 				html += "<tr>";
-				html += "<th colspan='5'>Sem resultados para a busca</th>";
+				html += "<th colspan='6'>Nenhuma avaliação marcada</th>";
 				html += "</tr>";
 			}
 			
 			for (var n = 0; n < obj.length; n++) {
-				html+= "<tr class='aluno'>";
-				html+= "<td class='info-id' >"+obj[n].id+"</td>";
+				html+= "<tr class='avaliacao'>";
+				html+= "<td class='info-id-avaliacao' >"+obj[n].id_av+"</td>";
 				html+= "<td>"+obj[n].nome+"</td>";
-				html+= "<td>"+obj[n].email+"</td>";
-				html+= "<td>"+obj[n].telefone+"</td>";
-				html+= "<td>"+obj[n].endereco+"</td>";
-				html+= "<td><a href='?/Personal/treino/"+obj[n].id+"' class='btn btn-primary'>Treino</a></td>";
-				html+= "<td><a href='javascript:agendarAvaliacao("+obj[n].id+");' class='btn btn-primary'>Agendar avaliação</a></td>";
-				html+= "</tr>";
-			}
-			document.getElementById("resultados").innerHTML = html;
-			
-			if (nome.length == 0) {
-				pegarTodos();
-			}
-		});
-	}
-	
-	function pegarTodos(){
-		$.ajax({
-			type: 'post',
-			url: '?/Personal/pegarTodos',
-			data: { r:"true"}
-		}).success(function(data) {
-			var obj = $.parseJSON(data);
-			//console.log(obj);
-			var html = "";
-			
-			if (obj.length > 0) {
-				
-			} else {
-				html += "<tr>";
-				html += "<th colspan='5'>Nenhum aluno cadastrado</th>";
-				html += "</tr>";
-			}
-			
-			for (var n = 0; n < obj.length; n++) {
-				html+= "<tr class='aluno'>";
-				html+= "<td class='info-id' >"+obj[n].id+"</td>";
-				html+= "<td>"+obj[n].nome+"</td>";
-				html+= "<td>"+obj[n].email+"</td>";
-				html+= "<td>"+obj[n].telefone+"</td>";
-				html+= "<td>"+obj[n].endereco+"</td>";
-				html+= "<td><a href='?/Personal/treino/"+obj[n].id+"' class='btn btn-primary'>Treino</a></td>";
-				html+= "<td><a href='javascript:agendarAvaliacao("+obj[n].id+");' class='btn btn-primary'>Agendar avaliação</a></td>";
+				html+= "<td>"+obj[n].sexo+"</td>";
+				html+= "<td class='info-data'>"+obj[n].data_marcada+"</td>";
+				html+= "<td><span class='label label-warning'>"+obj[n].dias+"</span></td>";
+				html+= "<td><a href='javascript:alterarAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Alterar</a></td>";
+				html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Excluir</a></td>";
 				html+= "</tr>";
 			}
 			document.getElementById("resultados").innerHTML = html;
 		});
 	}
-	
-	function agendarAvaliacao(id_aluno){
+	function alterarAvaliacao(id_avaliacao){
 		
-		var trsAlunos = document.getElementsByClassName("aluno");
+		var trsAvaliacoes = document.getElementsByClassName("avaliacao");
 		
-		var data = window.prompt("Digite a data da avaliação (dd/mm/aaaa)");
+		var novaData = window.prompt("Digite a data da avaliação (dd/mm/aaaa)");
 		
-		var verificarData = validarData(data);
+		var verificarData = validarData(novaData);
 		if(verificarData){
-			for(var i = 0; i < trsAlunos.length; i++){
-				var alunoIr = trsAlunos[i];
+			for(var i = 0; i < trsAvaliacoes.length; i++){
+				var avaliacaoIr = trsAvaliacoes[i];
 				
-				var id = alunoIr.getElementsByClassName("info-id")[0].textContent;
-				var aluno = {"id" : id};
+				var id_av = avaliacaoIr.getElementsByClassName("info-id-avaliacao")[0].textContent;
+				var data_av = avaliacaoIr.getElementsByClassName("info-data")[0].textContent;
+				
+				var avaliacao = {"id" : id_av, "data" : data_av};
 			
-				if(aluno.id == id_aluno){
+				if(avaliacao.id == id_avaliacao){
+					//alert("Id av: "+avaliacao.id+" Nova data:"+novaData+" Data antiga: "+data_av+".");
 					$.ajax({
 						type: 'post',
-						url: '?/Personal/agendarAvaliacao',
-						data: { z:aluno.id, p:data}
+						url: '?/Personal/alterarAvaliacao',
+						data: { j : avaliacao.id, k : novaData, l : data_av}
 					}).success(function(data) {
-						alert("Agendado");
+						var obj = $.parseJSON(data);
+						//console.log(obj);
+						var html = "";
+						if (obj.length > 0) {
+							
+						} else {
+							//alert("Erro na alteração");
+							location.reload();
+						}
+						
+						for (var n = 0; n < obj.length; n++) {
+							html+= "<tr class='avaliacao'>";
+							html+= "<td class='info-id-avaliacao' >"+obj[n].id_av+"</td>";
+							html+= "<td>"+obj[n].nome+"</td>";
+							html+= "<td>"+obj[n].sexo+"</td>";
+							html+= "<td class='info-data'>"+obj[n].data_marcada+"</td>";
+							html+= "<td><span class='label label-warning'>"+obj[n].dias+"</span></td>";
+							html+= "<td><a href='javascript:alterarAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Alterar</a></td>";
+							html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Excluir</a></td>";
+							html+= "</tr>";
+						}
+						document.getElementById("resultados").innerHTML = html;
+						
+						//pegarTodasAvaliacoes();
 					});
 				}
 			}
@@ -145,7 +131,48 @@
 			alert("Erro na data");
 		}
 	}
-	
+	function excluirAvaliacao(id_avaliacao){
+		var trsAvaliacoes = document.getElementsByClassName("avaliacao");
+		
+		for(var i = 0; i < trsAvaliacoes.length; i++){
+			var avaliacaoIr = trsAvaliacoes[i];
+			
+			var id_av = avaliacaoIr.getElementsByClassName("info-id-avaliacao")[0].textContent;
+			
+			var avaliacao = {"id" : id_av};
+		
+			if(avaliacao.id == id_avaliacao){
+				$.ajax({
+					type: 'post',
+					url: '?/Personal/deletarAvaliacao',
+					data: { d : avaliacao.id}
+				}).success(function(data) {
+					var obj = $.parseJSON(data);
+					//console.log(obj);
+					var html = "";
+					if (obj.length > 0) {
+						
+					} else {
+						//alert("Erro na alteração");
+						location.reload();
+					}
+					
+					for (var n = 0; n < obj.length; n++) {
+						html+= "<tr class='avaliacao'>";
+						html+= "<td class='info-id-avaliacao' >"+obj[n].id_av+"</td>";
+						html+= "<td>"+obj[n].nome+"</td>";
+						html+= "<td>"+obj[n].sexo+"</td>";
+						html+= "<td class='info-data'>"+obj[n].data_marcada+"</td>";
+						html+= "<td><span class='label label-warning'>"+obj[n].dias+"</span></td>";
+						html+= "<td><a href='javascript:alterarAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Alterar</a></td>";
+						html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Excluir</a></td>";
+						html+= "</tr>";
+					}
+					document.getElementById("resultados").innerHTML = html;
+				});
+			}
+		}
+	}
 	function validarData( data ) {
 
 			data = data.replace(/[^0-9\/]/g, "");
@@ -181,8 +208,7 @@
 
 			return true;
 	}
-	
-</script>
+	</script>
 
 </head>
 
@@ -442,19 +468,16 @@
 				<div class="row">
 					<div class="col-md-12 panel">
 						<div class="panel-heading">
-							<h3>Meus alunos</h3>
-						<label>Digite um nome:</label>
-						<input type="text" name="nome" id="busca-nome" onkeyup="dinamica()" autocomplete="off">
+							<h3>Lista de avaliações</h3>
 						</div>
 						<div class="panel-body">
 							<table class="table">
 								<tr>
 									<th>ID</th>
-									<th>Nome</th>
-									<th>Email</th>
-									<th>Telefone</th>
-									<th>Endereço</th>
-									<th></th>
+									<th>Nome do aluno</th>
+									<th>Sexo</th>
+									<th>Data marcada</th>
+									<th>Aviso</th>
 									<th></th>
 								</tr>
 								<tbody id="resultados">
@@ -463,13 +486,14 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- /.container -->
+			</div>
 			<div class="row" id="footer">
 				<div class="col-md-12">
 				Siblings <?php echo date("Y"); ?>
 				</div>
 			</div>
         </div>
+		
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
