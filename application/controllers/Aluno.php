@@ -27,13 +27,25 @@ class Aluno extends CI_Controller {
 		$this->load->view('aluno/home', array("user"=>$this->usuarioLogado, "academia"=>$academia));
 	}
 	
-	public function treino() {
+	public function treino($pagina = null) {
 		$this->auth();
 		$this->load->model("academia_md");
 		$academia = $this->academia_md->setar($this->usuarioLogado->academia_id);
-		$treino = $this->usuarioLogado->getTreino();
-		//Abrir página de treinos
-		$this->load->view('aluno/treino', array("user"=>$this->usuarioLogado, "academia"=>$academia, "treino"=>$treino));
+		
+		switch($pagina) {
+			case null:
+				//Abrir página de treinos
+				$treino = $this->usuarioLogado->getTreino();
+				$this->load->view('aluno/treino', array("user"=>$this->usuarioLogado, "academia"=>$academia, "treino"=>$treino));
+				break;
+			case "todo":
+				$treino = $this->usuarioLogado->getTreino();
+				$this->load->view('aluno/treino_todo', array("user"=>$this->usuarioLogado, "academia"=>$academia, "treino"=>$treino));
+				break;
+			default:
+				show_404();
+		}
+		
 	}
 	
 	public function inbox() {

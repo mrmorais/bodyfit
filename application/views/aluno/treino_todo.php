@@ -92,63 +92,41 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Treino 
-						<a class="btn btn-default" onclick="window.print()">Imprimir</a>
-						<a class="btn btn-success" href="?/Aluno/treino/todo">Modo de execução</a>
-						</h1>
+						<h1 class="page-header">
+							<a href="?/Aluno/treino"><span class="glyphicon glyphicon-chevron-left"></span></a>
+						Execução de treino</h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
 				<!-- /.row -->
 				<div class="row" id="printable">
 					<div class="col-md-12">
-						<div id="creditos">
-							<center><h3>TABELA DE TREINAMENTO</h3><br>
-							<?php echo "Aluno: <b>".$user->nome." ".$user->sobrenome."</b><br>Academia: <b>".$academia->nome."</b><hr>Treino gerado por <b>Bodyfit</b><hr>" ?>
-							</center>
-						</div>
-						<table class="table">
-							<tr>
-								<th>Dom</th>
-								<th>Seg</th>
-								<th>Ter</th>
-								<th>Qua</th>
-								<th>Qui</th>
-								<th>Sex</th>
-								<th>Sab</th>
-							</tr>
-							<tr class="exercicio-row">
-								<?php
-								if($treino!=false) {
-									for ($dia = 0; $dia < 7; $dia++) {
-										echo "<td>";
-										foreach($treino as $exec) {
-											if ($exec['dia']==$dia) {
-												echo '<div class="exe">';
-													echo '<span class="hover">';
-														echo '<b>'.$exec['nome'].'</b><br>';
-														echo '<i class="fa fa-clock-o"></i> '.$exec['repeticoes'].'/'.$exec['series'];
-														if ($exec['tempo']!="0") {
-															echo $exec['tempo'].' minuto(s)';
-														}
-													echo '</span>';
-												echo '</div>';
-											}
+						<?php
+						if($treino!=false) {
+							for ($dia = 0; $dia < 7; $dia++) {
+								if ($dia == date("w")) {
+									$count = 1;
+									foreach($treino as $exec) {
+										if ($exec['dia']==$dia) {
+											echo '<div class="row exe">';
+											echo '<div class="col-md-10">';
+												echo '<span class="hover col-sm-10">';
+													echo '<b>'.$exec['nome'].'</b><br>';
+													echo '<i class="fa fa-clock-o"></i> '.$exec['repeticoes'].'/'.$exec['series'];
+													if ($exec['tempo']!="0") {
+														echo $exec['tempo'].' minuto(s)';
+													}
+												echo '</span>';
+											echo '</div>';
+											echo '<div class="col-sm-2"><button id="e-'.$count.'" class="btn btn-success btn-block" onclick="feito('.$count.');">Fazer</button></div></div>';
+											$count++;
 										}
-										echo "</td>";
 									}
+									
 								}
-								?>
-							</tr>
-							<?php 
-							if($treino==false) {
-								echo "<tr>";
-								echo "<td colspan='7'><center><h2>Você não possui um treino especificado</h2><br>
-								Fale com seu personal elaborar um treino <a href='?/Aluno/inbox/' class='btn btn-info'>Inbox</a></center></td>";
-								echo "</tr>";
 							}
-							?>
-						</table>
+						}
+						?>
 					</div>
 				</div>
 			</div><!-- /.container -->
@@ -181,7 +159,19 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="public/template/dist/js/sb-admin-2.js"></script>
-
+    <script>
+		function feito(num) {
+			$("#e-"+num).attr("class", "btn btn-default btn-block");
+			$("#e-"+num).attr("onclick", "fazer("+num+");");
+			$("#e-"+num).html("Feito");
+			
+		}
+		function fazer(num) {
+			$("#e-"+num).attr("class", "btn btn-success btn-block");
+			$("#e-"+num).attr("onclick", "feito("+num+");");
+			$("#e-"+num).html("Fazer");
+		}
+    </script>
 </body>
 
 </html>
