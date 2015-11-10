@@ -51,17 +51,30 @@ class Gerente extends CI_Controller {
 		}
 	}
 	
-	public function modalidades($page = null) {
+	public function modalidades() {
 		$this->auth();
 		$this->load->model('Academia_md');
-		$dados['tabela'] = $this->Academia_md->buscarPraticas();
-		$dados['exercicios'] = $this->Academia_md->praticasCadastradas($this->session->userdata("id"));
+		$dados['tabela'] = $this->Academia_md->buscarPraticas($this->session->userdata("id"));
+		$dados['tabelaTodos'] = $this->Academia_md->buscarTodasPraticas();
 		
-		if($page){
-			$this->load->view('gerente/modalidades', array ('tabela'=>$dados['tabela'], 'exercicios'=>$dados['exercicios']));
-		} else {
-			$this->load->view('gerente/modalidades', array ('tabela'=>$dados['tabela'], 'exercicios'=>$dados['exercicios']));
-		}
+		
+		$this->load->view('gerente/modalidades', array ('tabela'=>$dados['tabela'], 'tabelaTodos'=>$dados['tabelaTodos'],));
+	}
+	
+	public function adicionarPratica($id){
+		$this->auth();
+		$this->load->model('Academia_md');
+		$this->Academia_md->adicionarPratica($id, $this->session->userdata("id"));
+		
+		$this->modalidades();
+	}
+	
+	public function removerPratica($id){
+		$this->auth();
+		$this->load->model('Academia_md');
+		$this->Academia_md->removerPratica($id);
+		
+		$this->modalidades();
 	}
 	
 	public function contato() {

@@ -8,7 +8,7 @@
 	<a href="?/Personal/avaliacoes"><i class="fa fa-calendar-o"></i> Avaliações</a>
 </li>
 <li>
-	<a href="?/Personal/treino"><i class="fa fa-tasks"></i> #Treino</a>
+	<a href="?/Personal/treinos"><i class="fa fa-tasks"></i> Treino</a>
 </li>
 <li>
 	<a href="?/Personal/inbox"><i class="fa fa-comment fa-fw"></i> Inbox</a>

@@ -51,6 +51,9 @@ class Academia_md extends CI_Model {
 	public function buscarAluno($id){
 		$this->load->database(); 
 		
+		//$this->db->where("academia_id", $id);
+		//$query = $this->db->get('aluno');
+		
 		$query = $this->db->query('SELECT id, nome, sobrenome, email FROM aluno');
 		$alunos = [];
 		foreach ($query->result() as $row) {
@@ -74,30 +77,49 @@ class Academia_md extends CI_Model {
 		return $personal;
 	}
 	
-	public function buscarPraticas(){
+	public function buscarPraticas($id){
+		$this->load->database();
+		
+		$query = $this->db->query("SELECT * FROM academia_has_pratica WHERE academia_id = ".$id."");		
+		$pratica_id = [];
+		$pratica = [];
+		
+		foreach ($query->result() as $row) {
+			$sql = $this->db->query("SELECT * FROM pratica WHERE id = ".$row->pratica_id."");
+			
+			foreach ($sql->result() as $row) {
+			
+				$pratica[] = array("id"=>$row->id, "nome"=>$row->nome, "descricao"=> $row->descricao, "musculo"=> $row->musculo);
+			}
+		}
+		
+		return $pratica;
+	}
+	
+	public function buscarTodasPraticas(){
 		$this->load->database();
 		
 		$query = $this->db->query('SELECT * FROM pratica');
 		$pratica = [];
 		foreach ($query->result() as $row) {
 			
-			$pratica[] = array("id"=>$row->id, "nome"=>$row->nome, "descricao"=> $row->descricao, "musculo"=> $row->musculo, "categoria"=> $row->categoria_id);
+			$pratica[] = array("id"=>$row->id, "nome"=>$row->nome, "descricao"=> $row->descricao, "musculo"=> $row->musculo);
 		}
 		
 		return $pratica;
 	}
-	public function praticasCadastradas($id){
+	
+	public function adicionarPratica($pratica_id, $academia_id){
 		$this->load->database();
 		
-		$this->db->where("academia_id", $id);
-		$query = $this->db->get('academia_has_pratica');
+		$dados = array("pratica_id"=>$pratica_id, "academia_id"=>$academia_id);
+		$this->db->insert("academia_has_pratica", $dados);
+	}
+	
+	public function removerPratica($id){
+		$this->load->database();
 		
-		foreach ($query->result() as $row) {
-			
-			$exercicios[] = array("id"=>$row->academia_id);
-		}
-		
-		return $exercicios;
+		$this->db->query('DELETE FROM academia_has_pratica WHERE pratica_id = '.$id.'');
 	}
 }
 ?>

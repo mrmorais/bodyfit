@@ -58,8 +58,6 @@ class Gerente_md extends CI_Model {
 		foreach($query->result() as $row) {
 			$academias[] = $row->academia_id;
 		}
-		echo $this->id;
-		echo $academias[0];
 		return $academias;
 	}
 	

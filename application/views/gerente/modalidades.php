@@ -57,29 +57,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">Bodyfit</a>
+                <a class="navbar-brand" href="index.html">Bodyfit</a>
             </div>
-            <!-- /.navbar-header -->
-                
-			<ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="?/Gerente/sair"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -102,39 +81,64 @@
 					
 					<div class="row">
 						<div class="col-lg-12">
+							<h2>Suas Práticas</h2>
 							<table class="table">
 								<tr>
 									<th>ID</th>
 									<th>Nome</th>
 									<th>Descrição</th>
-									<th>Músculo</th>
-									<th>Categoria</th>
+									<th>Musculo</th>
 									<th></th>
 								</tr>
-								
 								<?php 
 									for($i=0; $i < count($tabela); $i++){
-										
-										$butao = "Ñ Deu Certo!";
-										
-										for($c=0; $c < count($exercicios); $c++){
-											if($tabela[$i]['id'] == $exercicios[$c]['id']){
-												$butao = "Deu Certo!";
-											}
-										}
 											 
 										$idA= $tabela[$i]['id'];
 										$nomeA = $tabela[$i]['nome'];
 										$descricaoA = $tabela[$i]['descricao'];
 										$musculoA = $tabela[$i]['musculo'];
-										$categoriaA = $tabela[$i]['categoria'];
+										$remover = "<a href='?/Gerente/removerPratica/".$idA."'>Remover</a>";
+									
 										echo "<tr>".
 										"<td>".$idA."</td>".
 										"<td>".$nomeA."</td>".
 										"<td>".$descricaoA."</td>".
 										"<td>".$musculoA."</td>".
-										"<td>".$categoriaA."</td>".
-										"<td>".$butao."</td>".
+										"<td>".$remover."</td>".
+										"</tr>";
+										
+									}
+								?>
+							</table>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-12">
+							<h2>Todas as Práticas</h2>
+							<table class="table">
+								<tr>
+									<th>ID</th>
+									<th>Nome</th>
+									<th>Descrição</th>
+									<th>Musculo</th>
+									<th></th>
+								</tr>
+								<?php 
+									for($i=0; $i < count($tabelaTodos); $i++){
+											 
+										$idA= $tabelaTodos[$i]['id'];
+										$nomeA = $tabelaTodos[$i]['nome'];
+										$descricaoA = $tabelaTodos[$i]['descricao'];
+										$musculoA = $tabelaTodos[$i]['musculo'];
+										$adicionar = "<a href='?/Gerente/adicionarPratica/".$idA."'>Adicionar</a>";
+									
+										echo "<tr>".
+										"<td>".$idA."</td>".
+										"<td>".$nomeA."</td>".
+										"<td>".$descricaoA."</td>".
+										"<td>".$musculoA."</td>".
+										"<td>".$adicionar."</td>".
 										"</tr>";
 										
 									}

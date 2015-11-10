@@ -66,6 +66,7 @@ class Personal_md extends CI_Model {
 		return $arrayAvaliacoes;
 	}
 	public function pegarAlunos($id){
+		
 		$this->load->database();
 		
 		$sql = "SELECT aluno.* FROM aluno, personal_has_academia, academia, personal WHERE personal.id = ? and personal_has_academia.personal_id = personal.id and academia.id = personal_has_academia.academia_id and academia.id = aluno.academia_id";
@@ -92,6 +93,129 @@ class Personal_md extends CI_Model {
 			return false;
 		}
 	}
+	public function getTreino($p_id, $al_id) {
+		
+		$this->load->database();
+		$q = $this->db->query("SELECT p.id ,e.series, e.repeticoes, p.musculo, p.nome, e.tempo, c.nome as 'categoria', d.dia
+								FROM execucao as e, aluno as a, treino as t, pratica as p, personal as per, categoria as c, dia as d
+								WHERE 
+									per.id = ?
+									and a.id = ?
+									and per.id = t.personal_id
+									and a.id = t.aluno_id
+									and t.id = e.treino_id
+									and t.aluno_id = e.treino_aluno_id
+									and e.academia_has_pratica_pratica_id = p.id
+									and p.categoria_id = c.id
+									and e.id = d.execucao_id
+									and t.ativo = 1
+									", array($p_id, $al_id));
+		$execs = [];
+		if($q->num_rows() > 0) {
+			foreach($q->result() as $row) {
+				$execs[] = array("id"=>$row->id,
+								 "series"=>$row->series,
+								 "repeticoes"=>$row->repeticoes,
+								 "musculo"=>$row->musculo,
+								 "nome"=>$row->nome,
+								 "categoria"=>$row->categoria,
+								 "tempo"=>$row->tempo,
+								 "dia"=>$row->dia);
+			}
+			return $execs;
+		} else {
+			$treinoExiste = $this->db->query("SELECT * FROM treino WHERE aluno_id = ?", array($al_id));
+			if($treinoExiste->num_rows() == 0) {
+				$novo = $this->db->query('INSERT INTO treino(inicio, ativo, aluno_id, personal_id) VALUES(current_date, ?, ?, ?)', 
+				array(0, $al_id, $p_id));
+			}
+		}
+	}
+	public function adicionarExecucao($tr_id, $p_id, $al_id, $series, $repeticoes, $pratica, $dia){
+				$novaExecucao = $this->db->query('INSERT INTO execucao(treino_id, treino_personal_id, treino_aluno_id, series, repeticoes, academia_has_pratica_pratica_id) VALUES(?, ?, ?, ?,?,?)', 
+				array($tr_id, $p_id, $al_id, $series, $repeticoes, $pratica));
+				$id_ex = $this->db->insert_id();
+				$this->adicionarDia($id_ex, $tr_id, $dia);
+	}
+	
+	public function adicionarDia($id_execucao, $id_treino, $dia) {
+		$novoDia = $this->db->query("INSERT INTO dia(dia, execucao_id, execucao_treino_id) VALUES(?, ?, ?)",
+									array($dia, $id_execucao, $id_treino));
+	}
+	
+	public function getCategoria() {
+		
+		$this->load->database();
+		$q = $this->db->query("SELECT c.* FROM categoria c, pratica p, academia_has_pratica ap, academia a, personal pe, personal_has_academia pa
+									where pe.id = pa.personal_id and
+									a.id = pa.academia_id and
+									c.id = p.categoria_id and
+									ap.academia_id = a.id and
+									ap.pratica_id = p.id and pe.id= ? group by c.nome", array($this->id));
+		$cat = [];
+		if($q->num_rows() > 0) {
+			foreach($q->result() as $row) {
+				$cat[] = array(	"id"=>$row->id,
+								"nome"=>$row->nome);
+			}
+			return $cat;
+		} else {
+			return false;
+		}
+	}
+	/*
+	public function fazerTreino($p_id, $a_id){
+		$this->load->database();
+		$sql = "SELECT aluno.id, treino.id, aluno.nome, aluno.sobrenome, aluno.sexo, treino.inico, treino.fim FROM aluno, treino, personal WHERE personal.id = ? and treino.personal_id = personal.id and treino.aluno_id = aluno.id and treino.ativo = 0";
+		$query = $this->db->query($sql, array($p_id));
+		$exe = [];
+		
+		if($query->num_rows() > 0) {
+			foreach($query->result() as $row) {
+				
+				if($row->sexo == "m" or $row->sexo =="M"){
+					$sexo = "Masculino";
+				}
+				if($row->sexo == "f" or $row->sexo == "F"){
+						$sexo = "Feminino";
+				}
+				$exe[] = array(	"id_al"=>$row->id,
+								"nome"=>$row->nome.' '.$row->sobrenome,
+								"sexo"=>$sexo,
+								"data_inicial"=>$row->inico,
+								"data_final"=>$row->fim);
+			}
+			return $exe;
+		} else {
+			return false;
+		}
+	}
+	*/
+	public function getAlunosSemTreino($p_id) {
+		$this->load->database();
+		$sql = "SELECT a.* FROM aluno a, personal p, personal_has_academia pa WHERE p.id = pa.personal_id and pa.academia_id = a.academia_id and p.id = ? and a.id not in (select aluno_id from treino where ativo=1)";
+		$query = $this->db->query($sql, array($p_id));
+		$exe = [];
+		
+		if($query->num_rows() > 0) {
+			foreach($query->result() as $row) {
+				
+				if($row->sexo == "m" or $row->sexo =="M"){
+					$sexo = "Masculino";
+				}
+				if($row->sexo == "f" or $row->sexo == "F"){
+						$sexo = "Feminino";
+				}
+				$exe[] = array(	"id"=>$row->id,
+								"nome"=>$row->nome.' '.$row->sobrenome,
+								"sexo"=>$sexo);
+			}
+			return $exe;
+		} else {
+			return false;
+		}
+	}
+	
 	public function pegarAcademia($id){
 		$this->load->database();
 		
@@ -153,6 +277,20 @@ class Personal_md extends CI_Model {
 			$resultados = [];
 			foreach ($query->result() as $row) {
 				$resultados[] = array("id"=>$row->id, "nome"=>$row->nome." ".$row->sobrenome, "email"=>$row->email, "endereco"=>$row->endereco, "telefone"=>$row->telefone);
+			}
+			return $resultados;
+		}else{
+			return false;
+		}
+	}
+	public function pegarTodosExercicios($busca, $p_id) {
+		$this->load->database();
+		if($busca == "true"){
+			$sql = "SELECT pratica.* FROM pratica, academia, academia_has_pratica, personal_has_academia, personal WHERE personal.id = ? and personal.id = personal_has_academia.personal_id and personal_has_academia.academia_id = academia.id and academia.id = academia_has_pratica.academia_id and academia_has_pratica.pratica_id = pratica.id";
+			$query = $this->db->query($sql, array($p_id));
+			$resultados = [];
+			foreach ($query->result() as $row) {
+				$resultados[] = array("id"=>$row->id, "categoria"=>$row->categoria_id, "nome"=>$row->nome, "descricao"=>$row->descricao, "musculo"=>$row->musculo);
 			}
 			return $resultados;
 		}else{

@@ -20,6 +20,15 @@
 	padding:0px;
 	margin-bottom:6px;
 }
+.dia {
+	min-height:150px;
+}
+.yes-drop {
+	width: 100px;
+	height: 100px;
+	-webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
 /*.exercicio-row td .hover { 
     display: none;
     position: absolute;

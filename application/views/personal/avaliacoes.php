@@ -71,7 +71,7 @@
 				html+= "<td class='info-data'>"+obj[n].data_marcada+"</td>";
 				html+= "<td><span class='label label-warning'>"+obj[n].dias+"</span></td>";
 				html+= "<td><a href='javascript:alterarAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Alterar</a></td>";
-				html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Excluir</a></td>";
+				html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Cancelar</a></td>";
 				html+= "</tr>";
 			}
 			document.getElementById("resultados").innerHTML = html;
@@ -118,7 +118,7 @@
 							html+= "<td class='info-data'>"+obj[n].data_marcada+"</td>";
 							html+= "<td><span class='label label-warning'>"+obj[n].dias+"</span></td>";
 							html+= "<td><a href='javascript:alterarAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Alterar</a></td>";
-							html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Excluir</a></td>";
+							html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Cancelar</a></td>";
 							html+= "</tr>";
 						}
 						document.getElementById("resultados").innerHTML = html;
@@ -165,7 +165,7 @@
 						html+= "<td class='info-data'>"+obj[n].data_marcada+"</td>";
 						html+= "<td><span class='label label-warning'>"+obj[n].dias+"</span></td>";
 						html+= "<td><a href='javascript:alterarAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Alterar</a></td>";
-						html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Excluir</a></td>";
+						html+= "<td><a href='javascript:excluirAvaliacao("+obj[n].id_av+");' class='btn btn-primary'>Cancelar</a></td>";
 						html+= "</tr>";
 					}
 					document.getElementById("resultados").innerHTML = html;
